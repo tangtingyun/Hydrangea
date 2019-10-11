@@ -5,15 +5,20 @@
   
 
   
-  <title>云何应住？云何降伏其心</title>
+  <title>handler 同步屏障 | 云何应住？云何降伏其心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="云何应住？云何降伏其心">
-<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/index.html">
+  <meta name="description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些 发起消息屏障12345678910">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="handler 同步屏障">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2019/10/11/handler-同步屏障/index.html">
 <meta property="og:site_name" content="云何应住？云何降伏其心">
+<meta property="og:description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些 发起消息屏障12345678910">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-11T14:07:43.991Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="云何应住？云何降伏其心">
+<meta name="twitter:title" content="handler 同步屏障">
+<meta name="twitter:description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些 发起消息屏障12345678910">
   
     <link rel="alternate" href="/Hydrangea/atom.xml" title="云何应住？云何降伏其心" type="application/atom+xml">
   
@@ -60,9 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-handler-同步屏障" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-handler-同步屏障" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/Hydrangea/2019/10/11/handler-同步屏障/" class="article-date">
   <time datetime="2019-10-11T20:39:24.000Z" itemprop="datePublished">2019-10-11</time>
@@ -75,8 +78,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/Hydrangea/2019/10/11/handler-同步屏障/">handler 同步屏障</a>
+    <h1 class="article-title" itemprop="name">
+      handler 同步屏障
     </h1>
   
 
@@ -111,53 +114,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-git操作记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/Hydrangea/2019/10/01/git操作记录/" class="article-date">
-  <time datetime="2019-10-01T07:24:55.000Z" itemprop="datePublished">2019-10-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/Hydrangea/2019/10/01/git操作记录/">git操作记录</a>
-    </h1>
+    <a href="/Hydrangea/2019/10/01/git操作记录/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">git操作记录</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="git配置别名"><a href="#git配置别名" class="headerlink" title="git配置别名"></a>git配置别名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global alias.co checkout</span><br><span class="line">$ git config --global alias.ci commit</span><br><span class="line">$ git config --global alias.br branch</span><br><span class="line">$ git config --global alias.lg <span class="string">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="git-checkout-远程分支"><a href="#git-checkout-远程分支" class="headerlink" title="git checkout 远程分支"></a>git checkout 远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.git branch -a   查看远程分支</span><br><span class="line"></span><br><span class="line">2.git checkout -b xxxx（本地分支名称） yyyy(上条命令查找到的远程分支的名称)</span><br><span class="line"></span><br><span class="line">3.git branch 检查下 本地分支是否创建成功</span><br></pre></td></tr></table></figure>
-
-<h3 id="git-tag-操作"><a href="#git-tag-操作" class="headerlink" title="git tag 操作"></a>git tag 操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git tag -a ［name］ -m ［msg］  添加标签</span><br><span class="line">git ls-remote --tags        列出远程标签</span><br><span class="line">git push origin [tagname]   推送标签</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/01/git操作记录/" data-id="ck1m7h85i0000vxr9a6vx3427" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hydrangea/tags/git/">git</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
