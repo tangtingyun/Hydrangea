@@ -6,6 +6,7 @@ tags: android
   今天看来一篇文章 [app卡顿分析](https://juejin.im/post/5d837cd1e51d4561cb5ddf66)里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下
 
 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些
+<!-- more -->
 
 ### 发起消息屏障
 ```java
