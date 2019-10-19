@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>okhttps配置https | 云何应住？云何降伏其心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近pos需要上hppts 需要配置 使用的是ssl pinning 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 ssl pinning 又分公钥锁定和证书锁定参考链接 刚开是在网上找的文章后来放弃了 官方文档才是baba  官方https配置说明">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="okhttps配置https">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2019/10/19/okhttps配置https/index.html">
+<meta property="og:site_name" content="云何应住？云何降伏其心">
+<meta property="og:description" content="最近pos需要上hppts 需要配置 使用的是ssl pinning 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 ssl pinning 又分公钥锁定和证书锁定参考链接 刚开是在网上找的文章后来放弃了 官方文档才是baba  官方https配置说明">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-19T05:56:33.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="okhttps配置https">
+<meta name="twitter:description" content="最近pos需要上hppts 需要配置 使用的是ssl pinning 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 ssl pinning 又分公钥锁定和证书锁定参考链接 刚开是在网上找的文章后来放弃了 官方文档才是baba  官方https配置说明">
+  
+    <link rel="alternate" href="/Hydrangea/atom.xml" title="云何应住？云何降伏其心" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Hydrangea/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hydrangea/" id="logo">云何应住？云何降伏其心</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Hydrangea/">Home</a>
+        
+          <a class="main-nav-link" href="/Hydrangea/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Hydrangea/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tangtingyun.github.io/Hydrangea"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-okhttps配置https" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Hydrangea/2019/10/19/okhttps配置https/" class="article-date">
+  <time datetime="2019-10-19T11:10:49.000Z" itemprop="datePublished">2019-10-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      okhttps配置https
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近pos需要上hppts 需要配置 使用的是<code>ssl pinning</code> 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 <code>ssl pinning</code> 又分公钥锁定和证书锁定<a href="https://www.infinisign.com/faq/what-is-ssl-pinning" target="_blank" rel="noopener">参考链接</a></p>
+<p>刚开是在网上找的文章后来放弃了 官方文档才是baba</p>
+<ul>
+<li><a href="https://square.github.io/okhttp/https/" target="_blank" rel="noopener">官方https配置说明</a><a id="more"></a>
+
+</li>
+</ul>
+<blockquote>
+<h2 id="Certificate-Pinning"><a href="#Certificate-Pinning" class="headerlink" title="Certificate Pinning"></a>Certificate Pinning</h2><p>配置代码</p>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> client = OkHttpClient.Builder()</span><br><span class="line">    .certificatePinner(</span><br><span class="line">        CertificatePinner.Builder()</span><br><span class="line">            .add(<span class="string">"publicobject.com"</span>, <span class="string">"sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig="</span>)</span><br><span class="line">            .build())</span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">val</span> request = Request.Builder()</span><br><span class="line">      .url(<span class="string">"https://publicobject.com/robots.txt"</span>)</span><br><span class="line">      .build()</span><br><span class="line"></span><br><span class="line">  client.newCall(request).execute().use &#123; response -&gt;</span><br><span class="line">    <span class="keyword">if</span> (!response.isSuccessful) <span class="keyword">throw</span> IOException(<span class="string">"Unexpected code <span class="variable">$response</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (certificate <span class="keyword">in</span> response.handshake!!.peerCertificates) &#123;</span><br><span class="line">      println(CertificatePinner.pin(certificate))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://github.com/square/okhttp/blob/ba2c676aaf2b825528955f61dd43004a5bd9ca98/okhttp/src/main/java/okhttp3/CertificatePinner.kt" target="_blank" rel="noopener">完整示例代码</a></li>
+</ul>
+<p>这个是官方给的<code>ssl pinning</code> 配置示例 但是我这样用没用 因为我怀疑我们公司用的是自签名证书 而<code>CertificatePinner.kt</code>里面有注释</p>
+<p><code>CertificatePinner can not be used to pin self-signed certificate if such certificate is not accepted by javax.net.ssl.TrustManager.</code></p>
+<blockquote>
+<h2 id="CustomTrust"><a href="#CustomTrust" class="headerlink" title="CustomTrust"></a>CustomTrust</h2><p>采用官方第二种方式 ok了</p>
+<ul>
+<li><a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/CustomTrust.java" target="_blank" rel="noopener">完整示例代码</a></li>
+</ul>
+</blockquote>
+<p>这个示例代码里有行注释</p>
+<p><code>See also {@link CertificatePinner}, which can limit trusted certificates while still using the host platform&#39;s built-in trust store.</code></p>
+<p> 大概可以猜出来 <code>CertificatePinner</code> 还是需要官方ca链认证的 而我这种情况应该是自签名 所以第一种不行 第二种行 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/19/okhttps配置https/" data-id="ck1x5gdzl0003yil4gehp3isg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hydrangea/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hydrangea/2019/10/19/正则小记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          正则小记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hydrangea/2019/10/11/handler-同步屏障/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">handler 同步屏障</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Hydrangea/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hydrangea/tags/git/">git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hydrangea/tags/android/" style="font-size: 20px;">android</a> <a href="/Hydrangea/tags/git/" style="font-size: 10px;">git</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hydrangea/archives/2019/10/">October 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hydrangea/2019/10/19/正则小记/">正则小记</a>
+          </li>
+        
+          <li>
+            <a href="/Hydrangea/2019/10/19/okhttps配置https/">okhttps配置https</a>
+          </li>
+        
+          <li>
+            <a href="/Hydrangea/2019/10/11/handler-同步屏障/">handler 同步屏障</a>
+          </li>
+        
+          <li>
+            <a href="/Hydrangea/2019/10/01/git操作记录/">git操作记录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 xiao hong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hydrangea/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hydrangea/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Hydrangea/fancybox/jquery.fancybox.css">
+  <script src="/Hydrangea/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Hydrangea/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
