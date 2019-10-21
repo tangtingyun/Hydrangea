@@ -90,4 +90,4 @@ sequence:
   sequence: https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js
   # css: # optional, the url for css, such as hand drawn theme 
   options: 
-    theme: simple
+    theme: hand
