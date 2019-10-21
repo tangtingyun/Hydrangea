@@ -148,3 +148,10 @@ tags: android
 
 - 关于第一个问题 这篇文章里讲的比较清除 [文章连接](https://blog.csdn.net/qingtiantianqing/article/details/72783952)(不过这篇文章本身也是转载的😄)
 - 关于第二点 又仔细看来下next方法里针对异步消息的处理 对于开启同步屏障的流程 prevMsg 不为空 所以没有改变messages 导致屏障消息还在链表中
+
+      // Indicates whether next() is blocked waiting in pollOnce() with a non-zero timeout.
+      private boolean mBlocked;
+
+      // The next barrier token.
+      // Barriers are indicated by messages with a null target whose arg1 field carries the token.
+      private int mNextBarrierToken;
