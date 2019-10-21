@@ -28,7 +28,7 @@ view 相关参数记录
 
 2. **`ViewManager`**
 
-```sequence
+```sequence{theme=hand}
 Title:add view
 viewManager->windowManager:addview
 windowManager->WindowManagerImpl:addview
