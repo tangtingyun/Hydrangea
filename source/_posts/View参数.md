@@ -33,6 +33,8 @@ Title:add view
 viewManager->windowManager:addview
 windowManager->WindowManagerImpl:addview
 WindowManagerImpl->WindowManagerGlobal:addview
+```
+```sequence
 WindowManagerGlobal->ViewRootImpl:
 Note over ViewRootImpl:setview
 Note over ViewRootImpl:requestLayout
