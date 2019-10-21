@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="静静">
 <meta property="og:description" content="encapsulates 封装 view 相关参数记录">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-21T14:04:48.041Z">
+<meta property="og:updated_time" content="2019-10-21T14:29:48.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View参数">
 <meta name="twitter:description" content="encapsulates 封装 view 相关参数记录">
@@ -111,13 +111,19 @@
 <ol start="2">
 <li><strong><code>ViewManager</code></strong></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Title:add view</span><br><span class="line">viewManager-&gt;windowManager:addview</span><br><span class="line">windowManager-&gt;WindowManagerImpl:addview</span><br><span class="line">WindowManagerImpl-&gt;WindowManagerGlobal:addview</span><br><span class="line">WindowManagerGlobal-&gt;ViewRootImpl:</span><br><span class="line">Note over ViewRootImpl:setview</span><br><span class="line">Note over ViewRootImpl:requestLayout</span><br></pre></td></tr></table></figure>
-
-
+<div id="sequence-0"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">{theme=hand}
+Title:add view
+viewManager->windowManager:addview
+windowManager->WindowManagerImpl:addview
+WindowManagerImpl->WindowManagerGlobal:addview
+WindowManagerGlobal->ViewRootImpl:
+Note over ViewRootImpl:setview
+Note over ViewRootImpl:requestLayout</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/21/View参数/" data-id="ck20hs2uy0000xksl3f1ysfb0" class="article-share-link">Share</a>
+      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/21/View参数/" data-id="ck20io6w2000033ro1x06hir9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hydrangea/tags/android-view/">android-view</a></li></ul>
