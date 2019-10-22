@@ -5,22 +5,22 @@
   
 
   
-  <title>handler 同步屏障 | 静静</title>
+  <title>handler 同步屏障 | 不动心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="handler 同步屏障">
 <meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2019/10/11/handler-同步屏障/index.html">
-<meta property="og:site_name" content="静静">
+<meta property="og:site_name" content="不动心">
 <meta property="og:description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-21T23:52:49.216Z">
+<meta property="og:updated_time" content="2019-10-22T13:42:20.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="handler 同步屏障">
 <meta name="twitter:description" content="今天看来一篇文章 app卡顿分析里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下 handler消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些">
   
-    <link rel="alternate" href="/Hydrangea/atom.xml" title="静静" type="application/atom+xml">
+    <link rel="alternate" href="/Hydrangea/atom.xml" title="不动心" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -39,8 +39,12 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/Hydrangea/" id="logo">静静</a>
+        <a href="/Hydrangea/" id="logo">不动心</a>
       </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/Hydrangea/" id="subtitle">多去狂喜与伤心</a>
+        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -131,7 +135,7 @@ private int mNextBarrierToken;</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/11/handler-同步屏障/" data-id="ck212s8aj0003ybpkvcs141o1" class="article-share-link">Share</a>
+      <a data-url="https://tangtingyun.github.io/Hydrangea/2019/10/11/handler-同步屏障/" data-id="ck21wg5sr00031irke7puzwdi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hydrangea/tags/android/">android</a></li></ul>
