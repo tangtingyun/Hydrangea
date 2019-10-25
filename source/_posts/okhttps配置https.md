@@ -10,7 +10,7 @@ tags: android
 - [官方https配置说明](https://square.github.io/okhttp/https/)
 <!-- more -->
 
-> ## Certificate Pinning
+## Certificate Pinning
 配置代码
 ```kotlin
   private val client = OkHttpClient.Builder()
@@ -40,7 +40,7 @@ tags: android
 
 `CertificatePinner can not be used to pin self-signed certificate if such certificate is not accepted by javax.net.ssl.TrustManager.`
 
-> ## CustomTrust
+## CustomTrust
 采用官方第二种方式 ok了
 - [完整示例代码](https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/CustomTrust.java)
 

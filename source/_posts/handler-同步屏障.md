@@ -7,7 +7,7 @@ tags: android
 
 `handler`消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些
 <!-- more -->
-> ### 发起消息屏障
+### 发起消息屏障
 ```java
    private int postSyncBarrier(long when) {
         // Enqueue a new sync barrier token.
@@ -38,7 +38,7 @@ tags: android
         }
     }
 ```
-> ### 移除消息屏障
+### 移除消息屏障
 ```java
     public void removeSyncBarrier(int token) {
         // Remove a sync barrier token from the queue.
@@ -72,7 +72,7 @@ tags: android
         }
     }
 ```
-> ### 取下一条消息时 判断是否处于同步屏障 是的话先处理异步消息
+### 取下一条消息时 判断是否处于同步屏障 是的话先处理异步消息
 `MessageQueue#next`
 ```java
  synchronized (this) {
@@ -113,7 +113,7 @@ tags: android
                 ....
                 ....
 ```
-> ### 消息入列
+### 消息入列
 ```java
  if (p == null || when == 0 || when < p.when) {
                 // New head, wake up the event queue if blocked.
@@ -140,11 +140,10 @@ tags: android
                 prev.next = msg;
             }
 ```
-> 有两点没看懂
+有两点没看懂
 
->1.入异步消息队列时 needWake参数的作用 
-
->2.还有一点疑问 如何让同步屏障的消息 一直处于队列中呢？ 猜测是才取消息的时候链表操作里面有处理 暂时还看不懂
+1.入异步消息队列时 needWake参数的作用 
+2.还有一点疑问 如何让同步屏障的消息 一直处于队列中呢？ 猜测是才取消息的时候链表操作里面有处理 暂时还看不懂
 
 - 关于第一个问题 这篇文章里讲的比较清除 [文章连接](https://blog.csdn.net/qingtiantianqing/article/details/72783952)(不过这篇文章本身也是转载的😄)
 - 关于第二点 又仔细看来下next方法里针对异步消息的处理 对于开启同步屏障的流程 prevMsg 不为空 所以没有改变messages 导致屏障消息还在链表中
