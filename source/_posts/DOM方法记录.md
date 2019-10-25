@@ -6,12 +6,10 @@ tags:
 
 <!-- more -->
 1.`element.setAttribute(name, value);`
-```css
+```js
 .red {
     color: red;
 }
-```
-```js
 var red = document.getElementById('red');
 red.setAttribute('class', 'red')
 ```
