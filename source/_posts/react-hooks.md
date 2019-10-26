@@ -1,7 +1,7 @@
 ---
 title: react hooks
 date: 2019-10-25 21:56:26
-tags:
+tags: react 
 ---
 vue和react的区别
 <!-- more -->
