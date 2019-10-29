@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="android-view," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="encapsulates 封装 view 相关参数记录">
-<meta name="keywords" content="android-view">
-<meta property="og:type" content="article">
-<meta property="og:title" content="View参数">
-<meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;2019&#x2F;10&#x2F;21&#x2F;View%E5%8F%82%E6%95%B0&#x2F;index.html">
+<meta name="description" content="王二的blog">
+<meta name="keywords" content="blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;tags&#x2F;index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="encapsulates 封装 view 相关参数记录">
+<meta property="og:description" content="王二的blog">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-10-29T14:56:42.893Z">
 <meta name="twitter:card" content="summary">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2019/10/21/View参数/"/>
+  <link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/tags/"/>
 
 
 
 
 
-  <title>View参数 | 不动心</title>
+  <title>tags | 不动心</title>
   
 
 
@@ -229,178 +229,40 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/10/21/View%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiao hong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不动心">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">View参数</h1>
-        
+	<h1 class="post-title" itemprop="name headline">tags</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-21T20:54:15+00:00">
-                2019-10-21
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <p>encapsulates 封装</p>
-<p>view 相关参数记录</p>
-<a id="more"></a>
-<ol>
-<li><p><strong><code>MeasureSpec</code></strong></p>
-<ul>
-<li><p><code>UNSPECIFIED</code></p>
-<p>The parent has not imposed any constraint on the child. It can be whatever size it wants.</p>
-</li>
-<li><p><code>EXACTLY</code></p>
-<p>The parent has determined an exact size for the child. The child is going to be given those bounds regardless of how big it wants to be.</p>
-</li>
-<li><p><code>AT_MOST</code></p>
-<p>The child can be as large as it wants up to the specified size.</p>
-</li>
-</ul>
-</li>
-</ol>
-<p><code>wrap_content</code> -&gt; <code>MeasureSpec_AT_MOST</code></p>
-<p><code>match_parent</code> -&gt; <code>MeasureSpec_EXACTLY</code></p>
-<p><code>具体值</code> -&gt; <code>MeasureSpec.EXACTLY</code></p>
-<ol start="2">
-<li><strong><code>ViewManager</code></strong></li>
-</ol>
-<div id="sequence-0"></div>
-<div id="sequence-1"></div>
-<script src="https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js"></script><script src="https://cdn.bootcss.com/raphael/2.2.8/raphael.min.js"></script><script src="https://cdn.bootcss.com/snap.svg/0.5.1/snap.svg-min.js"></script><script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script><script src="https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Title:add view
-viewManager->windowManager:addview
-windowManager->WindowManagerImpl:addview
-WindowManagerImpl->WindowManagerGlobal:addview</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"hand"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">WindowManagerGlobal->ViewRootImpl:
-Note over ViewRootImpl:setview
-Note over ViewRootImpl:requestLayout</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"hand"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script>
+      <div class="post-body">
+        
+        
+          <div class="tag-cloud">
+            <div class="tag-cloud-title">
+                7 tags in total
+            </div>
+            <div class="tag-cloud-tags">
+              <a href="/Hydrangea/tags/android/" style="font-size: 30px; color: #111">android</a> <a href="/Hydrangea/tags/android-view/" style="font-size: 21px; color: #6f6f6f">android-view</a> <a href="/Hydrangea/tags/css/" style="font-size: 12px; color: #ccc">css</a> <a href="/Hydrangea/tags/git/" style="font-size: 12px; color: #ccc">git</a> <a href="/Hydrangea/tags/html/" style="font-size: 12px; color: #ccc">html</a> <a href="/Hydrangea/tags/react/" style="font-size: 12px; color: #ccc">react</a> <a href="/Hydrangea/tags/regex/" style="font-size: 12px; color: #ccc">regex</a>
+            </div>
+          </div>
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/Hydrangea/tags/android-view/" rel="tag"># android-view</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/Hydrangea/2019/10/19/%E6%AD%A3%E5%88%99%E5%B0%8F%E8%AE%B0/" rel="next" title="正则小记">
-                <i class="fa fa-chevron-left"></i> 正则小记
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Hydrangea/2019/10/22/css-%E5%B0%8F%E8%AE%B0/" rel="prev" title="css 小记">
-                css 小记 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
