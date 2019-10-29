@@ -8,6 +8,8 @@ tags: android
 1. 在清单文件`application`下添加 `<uses-library android:name="org.apache.http.legacy" android:required="false"/>`
 2. 在build.gradle文件里添加 `android {useLibrary 'org.apache.http.legacy'}`
 
+<!-- more -->
+
 - [动态权限申请RxPermissions](https://github.com/tbruyelle/RxPermissions)
 
 - [打开相册](https://www.jianshu.com/p/7c6a53db8b12)
