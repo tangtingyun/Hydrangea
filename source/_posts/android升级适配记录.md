@@ -1,0 +1,60 @@
+---
+title: android升级适配记录
+date: 2019-10-29 22:15:41
+tags: android
+---
+- [Apache HTTP 客户端弃用](https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn#apache-p)
+项目里用到了`Volley`需要使用`Apache Http Client`
+1. 在清单文件`application`下添加 `<uses-library android:name="org.apache.http.legacy" android:required="false"/>`
+2. 在build.gradle文件里添加 `android {useLibrary 'org.apache.http.legacy'}`
+
+- [动态权限申请RxPermissions](https://github.com/tbruyelle/RxPermissions)
+
+- [打开相册](https://www.jianshu.com/p/7c6a53db8b12)
+项目里使用的是`ACTION_GET_CONTENT`获取本地文件 跳转的时候不需要特殊权限 返回的是文件的`URI` 从`URI`提取绝对地址需要根据判断来区分[UriUtils](https://gist.github.com/tangtingyun/89c7da4d66e6f41b388ac00581f7ce23)
+
+- FileProvider适配
+在调用相机的时候 因为相机应用和你的应用是两个进程 需要通过fileProvier转换数据
+```java
+    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    Uri uri ;
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
+        uri = Uri.fromFile(mCurrentPhotoFile);
+    }else {
+        uri =  FileProvider.getUriForFile(this,getString(R.string.provider_str),mCurrentPhotoFile);
+        //加入uri权限 要不三星手机不能拍照
+        List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY;
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+    }
+    intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+    tartActivityForResult(intent, cameraCode);
+```
+- [https配置说明](https://developer.android.google.cn/training/articles/security-ssl?hl=zh_cn)
+假如是正规CA 只需要把url加上s即可 否则是以下几种情况
+1. 颁发服务器证书的CA未知
+2. 自签名证书
+3. 中间环节问题
+这种情况要自己做验证
+
+- [配置信任http](https://developer.android.google.cn/training/articles/security-config?hl=zh_cn)
+在清单文件application里面配置文件地址
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <manifest ... >
+        <application android:networkSecurityConfig="@xml/network_security_config"
+                        ... >
+            ...
+        </application>
+    </manifest>
+```
+network_security_config.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--允许所有网址使用非安全连接-->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
+```
