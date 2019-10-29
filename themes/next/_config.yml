@@ -104,6 +104,13 @@ menu:
 # Enable/Disable menu icons.
 menu_icons:
   enable: true
+  # Icon Mapping.
+  home: home
+  about: user
+  categories: th
+  tags: tags
+  archives: archive
+  commonweal: heartbeat
 
 
 # ---------------------------------------------------------------
