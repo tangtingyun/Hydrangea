@@ -92,11 +92,11 @@ index_with_subtitle: false
 # Value before `||` delimeter is the target link.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
-  home: /|| home
+  home: / || home
   #about: /about/ || user
   #tags: /tags/ || tags
   #categories: /categories/ || th
-  archives: /archives/|| archive
+  archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -104,13 +104,6 @@ menu:
 # Enable/Disable menu icons.
 menu_icons:
   enable: true
-  # Icon Mapping.
-  home: home
-  # about: user
-  # categories: th
-  # tags: tags
-  archives: archive
-  # commonweal: heartbeat
 
 
 # ---------------------------------------------------------------
@@ -118,7 +111,7 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Gemini
+scheme: Muse
 #scheme: Mist
 #scheme: Pisces
 #scheme: Gemini
@@ -413,7 +406,7 @@ gitment:
   count: true # Show comments count in post meta area
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
-  language: zh-Hans # Force language, or auto switch by theme
+  language: # Force language, or auto switch by theme
   github_user: # MUST HAVE, Your Github ID
   github_repo: # MUST HAVE, The repo you use to store Gitment comments
   client_id: # MUST HAVE, Github client id for the Gitment
