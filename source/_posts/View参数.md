@@ -1,7 +1,8 @@
 ---
 title: View参数
 date: 2019-10-21 20:54:15
-tags: android-view
+tags: 
+    - android-view
 ---
 encapsulates 封装
 

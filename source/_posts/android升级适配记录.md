@@ -1,7 +1,8 @@
 ---
 title: android升级适配记录
 date: 2019-10-29 22:15:41
-tags: android
+tags: 
+    - android
 ---
 - [Apache HTTP 客户端弃用](https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn#apache-p)
 项目里用到了`Volley`需要使用`Apache Http Client`

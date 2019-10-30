@@ -1,7 +1,8 @@
 ---
 title: git操作记录
 date: 2019-10-01 07:24:55
-tags: git
+tags: 
+    - git
 ---
 
 ### git配置别名

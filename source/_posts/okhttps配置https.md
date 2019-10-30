@@ -1,7 +1,8 @@
 ---
 title: okhttps配置https
 date: 2019-10-19 11:10:49
-tags: android
+tags: 
+    - android
 ---
 最近pos需要上hppts 需要配置 使用的是`ssl pinning` 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 `ssl pinning` 又分公钥锁定和证书锁定[参考链接](https://www.infinisign.com/faq/what-is-ssl-pinning)
 
