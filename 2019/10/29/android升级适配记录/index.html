@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="Apache HTTP 客户端弃用项目里用到了Volley需要使用Apache Http Client   在清单文件application下添加 &amp;lt;uses-library android:name=&amp;quot;org.apache.http.legacy&amp;quot; android:required=&amp;quot;false&amp;quot;&#x2F;&amp;gt; 在build.gradle文件里添加 a">
+<meta name="description" content="Apache HTTP 客户端弃用android6.0 android 9.0  变更项目里用到了Volley需要使用Apache Http Client   在清单文件application下添加 &amp;lt;uses-library android:name=&amp;quot;org.apache.http.legacy&amp;quot; android:required=&amp;quot;false&amp;quot;">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android升级适配记录">
 <meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;2019&#x2F;10&#x2F;29&#x2F;android%E5%8D%87%E7%BA%A7%E9%80%82%E9%85%8D%E8%AE%B0%E5%BD%95&#x2F;index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="Apache HTTP 客户端弃用项目里用到了Volley需要使用Apache Http Client   在清单文件application下添加 &amp;lt;uses-library android:name=&amp;quot;org.apache.http.legacy&amp;quot; android:required=&amp;quot;false&amp;quot;&#x2F;&amp;gt; 在build.gradle文件里添加 a">
+<meta property="og:description" content="Apache HTTP 客户端弃用android6.0 android 9.0  变更项目里用到了Volley需要使用Apache Http Client   在清单文件application下添加 &amp;lt;uses-library android:name=&amp;quot;org.apache.http.legacy&amp;quot; android:required=&amp;quot;false&amp;quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-30T01:40:52.949Z">
+<meta property="og:updated_time" content="2019-10-30T09:50:25.754Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -309,7 +309,7 @@
 
       
         <ul>
-<li><a href="https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn#apache-p" target="_blank" rel="noopener">Apache HTTP 客户端弃用</a><br>项目里用到了<code>Volley</code>需要使用<code>Apache Http Client</code></li>
+<li><a href="https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn#apache-p" target="_blank" rel="noopener">Apache HTTP 客户端弃用</a><br>android6.0 android 9.0  变更<br>项目里用到了<code>Volley</code>需要使用<code>Apache Http Client</code></li>
 </ul>
 <ol>
 <li>在清单文件<code>application</code>下添加 <code>&lt;uses-library android:name=&quot;org.apache.http.legacy&quot; android:required=&quot;false&quot;/&gt;</code></li>
@@ -318,13 +318,13 @@
 <a id="more"></a>
 
 <ul>
-<li><p><a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">动态权限申请RxPermissions</a></p>
+<li><p><a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">动态权限申请RxPermissions</a><br>android6.0变更</p>
 </li>
 <li><p><a href="https://www.jianshu.com/p/7c6a53db8b12" target="_blank" rel="noopener">打开相册</a><br>项目里使用的是<code>ACTION_GET_CONTENT</code>获取本地文件 跳转的时候不需要特殊权限 返回的是文件的<code>URI</code> 从<code>URI</code>提取绝对地址需要根据判断来区分<a href="https://gist.github.com/tangtingyun/89c7da4d66e6f41b388ac00581f7ce23" target="_blank" rel="noopener">UriUtils</a></p>
 </li>
-<li><p>FileProvider适配<br>在调用相机的时候 因为相机应用和你的应用是两个进程 需要通过fileProvier转换数据</p>
+<li><p>FileProvider适配<br>android7.0变更<br>在调用相机的时候 因为相机应用和你的应用是两个进程 需要通过fileProvier转换数据</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">Uri uri ;</span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &lt;= Build.VERSION_CODES.M)&#123;</span><br><span class="line">    uri = Uri.fromFile(mCurrentPhotoFile);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    uri =  FileProvider.getUriForFile(<span class="keyword">this</span>,getString(R.string.provider_str),mCurrentPhotoFile);</span><br><span class="line">    <span class="comment">//加入uri权限 要不三星手机不能拍照</span></span><br><span class="line">    List&lt;ResolveInfo&gt; resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY;</span><br><span class="line">    <span class="keyword">for</span> (ResolveInfo resolveInfo : resInfoList) &#123;</span><br><span class="line">        String packageName = resolveInfo.activityInfo.packageName;</span><br><span class="line">        grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);</span><br><span class="line">tartActivityForResult(intent, cameraCode);</span><br></pre></td></tr></table></figure></li>
-<li><p><a href="https://developer.android.google.cn/training/articles/security-ssl?hl=zh_cn" target="_blank" rel="noopener">https配置说明</a><br>假如是正规CA 只需要把url加上s即可 否则是以下几种情况</p>
+<li><p><a href="https://developer.android.google.cn/training/articles/security-ssl?hl=zh_cn" target="_blank" rel="noopener">https配置说明</a><br>android9.0变更<br>假如是正规CA 只需要把url加上s即可 否则是以下几种情况</p>
 </li>
 </ul>
 <ol>
@@ -333,8 +333,14 @@
 <li>中间环节问题<br>这种情况要自己做验证</li>
 </ol>
 <ul>
-<li><a href="https://developer.android.google.cn/training/articles/security-config?hl=zh_cn" target="_blank" rel="noopener">配置信任http</a><br>在清单文件application里面配置文件地址<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:networkSecurityConfig</span>=<span class="string">"@xml/network_security_config"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">...</span> &gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
-network_security_config.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">network-security-config</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--允许所有网址使用非安全连接--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">base-config</span> <span class="attr">cleartextTrafficPermitted</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">network-security-config</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><a href="https://developer.android.google.cn/training/articles/security-config?hl=zh_cn" target="_blank" rel="noopener">配置信任http</a><br>在清单文件application里面配置文件地址</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:networkSecurityConfig</span>=<span class="string">"@xml/network_security_config"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">...</span> &gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>network_security_config.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">network-security-config</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--允许所有网址使用非安全连接--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">base-config</span> <span class="attr">cleartextTrafficPermitted</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">network-security-config</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><a href="https://developer.android.google.cn/training/notify-user/channels.html#java" target="_blank" rel="noopener">通知渠道</a><br>android8.0变更</p>
+</li>
+<li><p><a href="https://developer.android.google.cn/topic/security/best-practices?hl=zh_cn" target="_blank" rel="noopener">应用安全最佳做法</a></p>
+</li>
 </ul>
 
       
@@ -465,6 +471,16 @@ network_security_config.xml<figure class="highlight xml"><table><tr><td class="g
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a2eda606be5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
           
 
           
