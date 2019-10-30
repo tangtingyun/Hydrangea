@@ -1,8 +1,7 @@
 ---
 title: DOM方法记录
 date: 2019-10-25 21:53:47
-tags:  
-    - html
+tags: html
 ---
 
 <!-- more -->

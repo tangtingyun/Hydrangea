@@ -1,8 +1,7 @@
 ---
 title: android 动态修改view参数
 date: 2019-10-26 22:23:48
-tags: 
-    - android-view
+tags: android-view
 ---
 动态修改view参数的几种方法
 [刘皇叔的博客](https://liuwangshu.cn/application/view/2-sliding.html)

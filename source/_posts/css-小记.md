@@ -1,8 +1,7 @@
 ---
 title: css 小记
 date: 2019-10-22 22:15:41
-tags: 
-    - css
+tags: css
 ---
 
 - [css重绘属性表](https://csstriggers.com/)

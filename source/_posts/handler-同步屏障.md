@@ -1,8 +1,7 @@
 ---
 title: handler 同步屏障
 date: 2019-10-11 20:39:24
-tags: 
-    - android
+tags: android
 ---
   今天看来一篇文章 [app卡顿分析](https://juejin.im/post/5d837cd1e51d4561cb5ddf66)里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下
 
