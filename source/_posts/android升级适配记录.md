@@ -4,6 +4,7 @@ date: 2019-10-29 22:15:41
 tags: android
 ---
 - [Apache HTTP 客户端弃用](https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn#apache-p)
+android6.0 android 9.0  变更 
 项目里用到了`Volley`需要使用`Apache Http Client`
 1. 在清单文件`application`下添加 `<uses-library android:name="org.apache.http.legacy" android:required="false"/>`
 2. 在build.gradle文件里添加 `android {useLibrary 'org.apache.http.legacy'}`
@@ -11,11 +12,13 @@ tags: android
 <!-- more -->
 
 - [动态权限申请RxPermissions](https://github.com/tbruyelle/RxPermissions)
+ android6.0变更
 
 - [打开相册](https://www.jianshu.com/p/7c6a53db8b12)
 项目里使用的是`ACTION_GET_CONTENT`获取本地文件 跳转的时候不需要特殊权限 返回的是文件的`URI` 从`URI`提取绝对地址需要根据判断来区分[UriUtils](https://gist.github.com/tangtingyun/89c7da4d66e6f41b388ac00581f7ce23)
 
 - FileProvider适配
+android7.0变更
 在调用相机的时候 因为相机应用和你的应用是两个进程 需要通过fileProvier转换数据
 ```java
     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -35,6 +38,7 @@ tags: android
     tartActivityForResult(intent, cameraCode);
 ```
 - [https配置说明](https://developer.android.google.cn/training/articles/security-ssl?hl=zh_cn)
+android9.0变更
 假如是正规CA 只需要把url加上s即可 否则是以下几种情况
 1. 颁发服务器证书的CA未知
 2. 自签名证书
@@ -60,3 +64,7 @@ network_security_config.xml
     <base-config cleartextTrafficPermitted="true" />
 </network-security-config>
 ```
+- [通知渠道](https://developer.android.google.cn/training/notify-user/channels.html#java)
+android8.0变更
+
+- [应用安全最佳做法](https://developer.android.google.cn/topic/security/best-practices?hl=zh_cn)
