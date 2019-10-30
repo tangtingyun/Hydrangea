@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Hydrangea/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/Hydrangea/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Hydrangea/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Hydrangea/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Hydrangea/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Hydrangea/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Hydrangea/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vue和react的区别">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react hooks">
+<meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;2019&#x2F;10&#x2F;25&#x2F;react-hooks&#x2F;index.html">
+<meta property="og:site_name" content="不动心">
+<meta property="og:description" content="vue和react的区别">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-30T01:36:28.320Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Hydrangea/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2019/10/25/react-hooks/"/>
+
+
+
+
+
+  <title>react hooks | 不动心</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Hydrangea/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不动心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Hydrangea/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Hydrangea/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Hydrangea/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/10/25/react-hooks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react hooks</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T21:56:26+00:00">
+                2019-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>vue和react的区别</p>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th align="left">比较</th>
+<th align="left">Rect</th>
+<th align="left">Vue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">如何重新渲染</td>
+<td align="left"><code>setState( {a:2} )</code></td>
+<td align="left"><code>this.data.a=2</code></td>
+</tr>
+<tr>
+<td align="left">shouldUpdateComponent方法</td>
+<td align="left">有这个方法</td>
+<td align="left">没有这个概念</td>
+</tr>
+<tr>
+<td align="left">渲染思路</td>
+<td align="left">是基于不可变数据来的 需要用户自己判断是否需要重新渲染</td>
+<td align="left">是基于可变数据的思路来的 观察数据 自动重新渲染模版</td>
+</tr>
+</tbody></table>
+<p>今天把react看了下 写的react hooks的 todolist</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;useReducer, useState&#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;Button, Input, Card, message, Icon&#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'antd/dist/antd.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span> (<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'toggle'</span>:</span><br><span class="line">            <span class="keyword">return</span> produce(state, (draftState) =&gt; &#123;</span><br><span class="line">                draftState[action.payload].isCompleted</span><br><span class="line">                    = !draftState[action.payload].isCompleted</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'add'</span>:</span><br><span class="line">            <span class="keyword">return</span> produce(state, (draftState) =&gt; &#123;</span><br><span class="line">                draftState.push(&#123;<span class="attr">label</span>: action.payload&#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'delete'</span>:</span><br><span class="line">            <span class="keyword">return</span> produce(state, (draftState) =&gt; &#123;</span><br><span class="line">                draftState.splice(action.payload, <span class="number">1</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Todo</span> (<span class="params">&#123;isCompleted, label, onChange, onDelete&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&#123;&#123;display:</span> '<span class="attr">flex</span>', <span class="attr">justifyContent:</span> '<span class="attr">space-between</span>'&#125;&#125;&gt;</span></span></span><br><span class="line">        &lt;label style=&#123;&#123;</span><br><span class="line">            textDecoration: isCompleted &amp;&amp; 'line-through'</span><br><span class="line">        &#125;&#125;&gt;</span><br><span class="line">            &lt;input</span><br><span class="line">                type="checkbox"</span><br><span class="line">                checked=&#123;isCompleted || false&#125;</span><br><span class="line">                onChange=&#123;onChange&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">            &lt;span&gt;&#123;label&#125;&lt;/span&gt;</span><br><span class="line">        &lt;/label&gt;</span><br><span class="line">        &lt;Icon type="delete" style=&#123;&#123;cursor: 'pointer'&#125;&#125;</span><br><span class="line">              onClick=&#123;onDelete&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    &lt;/p&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ToDoList () &#123;</span><br><span class="line">    const todos = [</span><br><span class="line">        &#123;label: 'Do something'&#125;,</span><br><span class="line">        &#123;label: 'Buy dinner'&#125;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    const [state, dispatch] = useReducer(reducer, todos)</span><br><span class="line">    const [newTodo, setNewTodo] = useState('')</span><br><span class="line">    return (</span><br><span class="line">        &lt;Card bordered=&#123;false&#125; style=&#123;&#123;width: 400, margin: 'auto', marginTop: 100&#125;&#125;&gt;</span><br><span class="line">            &#123;state.map((todo, i) =&gt; (</span><br><span class="line">                &lt;Todo</span><br><span class="line">                    key=&#123;i&#125;</span><br><span class="line">                    &#123;...todo&#125;</span><br><span class="line">                    onChange=&#123;() =&gt; dispatch(</span><br><span class="line">                        &#123;type: 'toggle', payload: i&#125;</span><br><span class="line">                    )&#125;</span><br><span class="line">                    onDelete=&#123;() =&gt; dispatch(</span><br><span class="line">                        &#123;type: 'delete', payload: i&#125;</span><br><span class="line">                    )&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            ))&#125;</span><br><span class="line">            &lt;Input</span><br><span class="line">                type="text"</span><br><span class="line">                value=&#123;newTodo&#125;</span><br><span class="line">                style=&#123;&#123;width: 280&#125;&#125;</span><br><span class="line">                onChange=&#123;</span><br><span class="line">                    (e) =&gt; setNewTodo(e.target.value)</span><br><span class="line">                &#125;</span><br><span class="line">            /&gt;</span><br><span class="line">            &lt;Button style=&#123;&#123;marginLeft: 10&#125;&#125; type="primary" onClick=&#123;() =&gt; &#123;</span><br><span class="line">                if (!newTodo) &#123;</span><br><span class="line">                    message.info('please input todo');</span><br><span class="line">                    return</span><br><span class="line">                &#125;</span><br><span class="line">                dispatch(&#123;type: 'add', payload: newTodo&#125;)</span><br><span class="line">                setNewTodo('')</span><br><span class="line">            &#125;&#125;&gt;</span><br><span class="line">                Add</span><br><span class="line">            &lt;/Button&gt;</span><br><span class="line">        &lt;/Card&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ToDoList;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Hydrangea/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Hydrangea/2019/10/25/DOM%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/" rel="next" title="DOM方法记录">
+                <i class="fa fa-chevron-left"></i> DOM方法记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Hydrangea/2019/10/26/android-%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9view%E5%8F%82%E6%95%B0/" rel="prev" title="android 动态修改view参数">
+                android 动态修改view参数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xiao hong</p>
+              <p class="site-description motion-element" itemprop="description">王二的blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Hydrangea/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Hydrangea/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiao hong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Hydrangea/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Hydrangea/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Hydrangea/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Hydrangea/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Hydrangea/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Hydrangea/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Hydrangea/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Hydrangea/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
