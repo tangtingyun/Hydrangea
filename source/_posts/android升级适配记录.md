@@ -68,3 +68,7 @@ network_security_config.xml
 android8.0变更
 
 - [应用安全最佳做法](https://developer.android.google.cn/topic/security/best-practices?hl=zh_cn)
+
+- [AlarmManager使用](https://juejin.im/entry/588628e8128fe10065eb62a9)
+
+- [currentTimeMillis uptimeMillis elapsedRealtime 区别](https://developer.android.com/reference/android/os/SystemClock.html#setCurrentTimeMillis(long))
