@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="不动心">
 <meta property="og:description" content="Apache HTTP 客户端弃用android6.0 android 9.0  变更项目里用到了Volley需要使用Apache Http Client   在清单文件application下添加 &amp;lt;uses-library android:name=&amp;quot;org.apache.http.legacy&amp;quot; android:required=&amp;quot;false&amp;quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-31T14:39:11.908Z">
+<meta property="og:updated_time" content="2019-11-01T09:27:15.452Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -345,6 +345,11 @@
 </li>
 <li><p><a href="https://developer.android.com/reference/android/os/SystemClock.html#setCurrentTimeMillis(long)" target="_blank" rel="noopener">currentTimeMillis uptimeMillis elapsedRealtime 区别</a></p>
 </li>
+<li><p><a href="https://stackoverflow.com/questions/2012497/accepting-https-connections-with-self-signed-certificates/3904473#3904473" target="_blank" rel="noopener">Volley信任https</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;</span><br><span class="line">DefaultHttpClient client = <span class="keyword">new</span> DefaultHttpClient();</span><br><span class="line">SchemeRegistry registry = <span class="keyword">new</span> SchemeRegistry();</span><br><span class="line">SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();</span><br><span class="line">socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);</span><br><span class="line">registry.register(<span class="keyword">new</span> Scheme(<span class="string">"https"</span>, socketFactory, <span class="number">443</span>));</span><br><span class="line">SingleClientConnManager mgr = <span class="keyword">new</span> SingleClientConnManager(client.getParams(), registry);</span><br><span class="line">sClient = <span class="keyword">new</span> DefaultHttpClient(mgr, client.getParams());</span><br><span class="line"><span class="comment">// Set verifier</span></span><br><span class="line">HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);</span><br><span class="line"><span class="comment">//传入HttpClientStack，才能保证cookies与服务器交互，默认volley无cookies支持。</span></span><br><span class="line">queue = Volley.newRequestQueue(context, <span class="keyword">new</span> HttpClientStack(sClient));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>android studio 配置阿里云代理<br><a href="https://www.jianshu.com/p/b038bd95444b" target="_blank" rel="noopener">参考文章</a><br><a href="http://dkaishu.com/2019/06/01/Android-Studio-%E4%B8%AD%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91%E5%85%AC%E5%85%B1%E4%BB%A3%E7%A0%81%E5%BA%93(%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93)/" target="_blank" rel="noopener">参考文章</a><br><a href="https://help.aliyun.com/document_detail/102512.html?spm=a2c40.aliyun_maven_repo.0.0.361830543mJYeQ#h2-u914Du7F6Eu6307u53572" target="_blank" rel="noopener">阿里云镜像</a><br><a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener">init.gradle</a></p>
+</li>
 </ul>
 
       
@@ -456,7 +461,7 @@
               
                 <a href="/Hydrangea/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -469,7 +474,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/Hydrangea/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
