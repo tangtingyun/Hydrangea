@@ -72,3 +72,25 @@ android8.0变更
 - [AlarmManager使用](https://juejin.im/entry/588628e8128fe10065eb62a9)
 
 - [currentTimeMillis uptimeMillis elapsedRealtime 区别](https://developer.android.com/reference/android/os/SystemClock.html#setCurrentTimeMillis(long))
+
+- [Volley信任https](https://stackoverflow.com/questions/2012497/accepting-https-connections-with-self-signed-certificates/3904473#3904473)
+```java
+HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+DefaultHttpClient client = new DefaultHttpClient();
+SchemeRegistry registry = new SchemeRegistry();
+SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();
+socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);
+registry.register(new Scheme("https", socketFactory, 443));
+SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);
+sClient = new DefaultHttpClient(mgr, client.getParams());
+// Set verifier
+HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
+//传入HttpClientStack，才能保证cookies与服务器交互，默认volley无cookies支持。
+queue = Volley.newRequestQueue(context, new HttpClientStack(sClient));
+```
+
+- android studio 配置阿里云代理
+ [参考文章](https://www.jianshu.com/p/b038bd95444b)
+ [参考文章](http://dkaishu.com/2019/06/01/Android-Studio-%E4%B8%AD%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91%E5%85%AC%E5%85%B1%E4%BB%A3%E7%A0%81%E5%BA%93(%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93)/)
+ [阿里云镜像](https://help.aliyun.com/document_detail/102512.html?spm=a2c40.aliyun_maven_repo.0.0.361830543mJYeQ#h2-u914Du7F6Eu6307u53572)
+ [init.gradle](https://docs.gradle.org/current/userguide/init_scripts.html)
