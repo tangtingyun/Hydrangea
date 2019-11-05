@@ -9,16 +9,15 @@ tags: java
 1. #### `java类加载`
 
 ```sequence
-Title:java类加载
-加载->连接:
-Note over 连接:验证
-Note over 连接:准备
-Note over 连接:解析
-连接->初始化:
+loading->linking:
+Note over linking:verification
+Note over linking:preparation
+Note over linking:resolution
+linking->initialization:
 ```
 ```sequence
-初始化->使用:
-使用->卸载:
+initialization->using:
+using->Unloading:
 ```
 `public static int a  = 5`
 连接的准备阶段是正式为类变量分配内存并设置类变量初始值的阶段,这些变量所使用的内存都将在方法去中进行分配.
