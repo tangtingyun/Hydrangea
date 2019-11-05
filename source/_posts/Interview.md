@@ -4,9 +4,8 @@ date: 2019-11-1 07:47:49
 tags: interview
 ---
 
-<!-- more -->
-
 转载内容 [原文请访问](https://mp.weixin.qq.com/s/G1nECewQob5lcHb21ZwOZg) 侵权立删 只是为自己学习做记录 非商业用途
+<!-- more -->
 - 优贝在线
 
 1. Android 项目中 asset 目录和 res 目录有什么区别
