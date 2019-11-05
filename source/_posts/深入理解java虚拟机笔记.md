@@ -14,8 +14,6 @@ Note over linking:verification
 Note over linking:preparation
 Note over linking:resolution
 linking->initialization:
-```
-```sequence
 initialization->using:
 using->Unloading:
 ```
@@ -24,7 +22,7 @@ using->Unloading:
 如上变量`a`在准备阶段过后的初始值是`0`而不是123,因为这时候尚未开始执行任何`java`方法, `123`是在初始化阶段赋值的.
 在通常情况下初始值都是零值,但如果变量被`final`修饰,那么准备阶段就会直接赋值为`123`
 
-2. #### `<clinit>`
+1. #### `<clinit>`
 `<clinit>`方法是有编译器自动收集类中所有类变量的赋值动作和静态语句块重的语句合并产生的.虚拟机会保证一个类的`<clinit>`方法在多线程的环境中被正确的加锁,同步. 
 
 3. #### `类加载器`
