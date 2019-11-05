@@ -90,7 +90,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;11&#x2F;05&#x2F;PZWfiK9D6UazXF5.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;11&#x2F;05&#x2F;7G31u4XzfRox2Iy.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;11&#x2F;05&#x2F;3AbhqxWEdwTYyKC.png">
-<meta property="og:updated_time" content="2019-11-05T03:30:33.165Z">
+<meta property="og:updated_time" content="2019-11-05T03:51:14.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;11&#x2F;05&#x2F;PZWfiK9D6UazXF5.png">
 
@@ -320,13 +320,12 @@
 <li><h4 id="java类加载"><a href="#java类加载" class="headerlink" title="java类加载"></a><code>java类加载</code></h4></li>
 </ol>
 <div id="sequence-0"></div>
-<div id="sequence-1"></div>
 `public static int a  = 5`
 连接的准备阶段是正式为类变量分配内存并设置类变量初始值的阶段,这些变量所使用的内存都将在方法去中进行分配.
 如上变量`a`在准备阶段过后的初始值是`0`而不是123,因为这时候尚未开始执行任何`java`方法, `123`是在初始化阶段赋值的.
 在通常情况下初始值都是零值,但如果变量被`final`修饰,那么准备阶段就会直接赋值为`123`
 
-<ol start="2">
+<ol>
 <li><h4 id="lt-clinit-gt"><a href="#lt-clinit-gt" class="headerlink" title="&lt;clinit&gt;"></a><code>&lt;clinit&gt;</code></h4><p><code>&lt;clinit&gt;</code>方法是有编译器自动收集类中所有类变量的赋值动作和静态语句块重的语句合并产生的.虚拟机会保证一个类的<code>&lt;clinit&gt;</code>方法在多线程的环境中被正确的加锁,同步. </p>
 </li>
 <li><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a><code>类加载器</code></h4><p>比较两个类是否相等，只有在这两个类是由同一个类加载器加载的前提下才有意义,否则，即使这两个类来源于同一个class文件，被同一个虚拟机加载，只要加载他们的类加载器不同，呢么这两个类就必不想等。<br>双亲委派模型工作过程是: 如果一个类加载器接收到了类加载的请求，他首先不会自己去尝试加载这个类，而是把请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。</p>
@@ -356,8 +355,9 @@
 Note over linking:verification
 Note over linking:preparation
 Note over linking:resolution
-linking->initialization:</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"hand"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">initialization->using:
-using->Unloading:</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"hand"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></li>
+linking->initialization:
+initialization->using:
+using->Unloading:</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"hand"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></li>
 </ol>
 
       
