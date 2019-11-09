@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="android," />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="最近pos需要上hppts 需要配置 使用的是ssl pinning 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 ssl pinning 又分公钥锁定和证书锁定参考链接 刚开是在网上找的文章后来放弃了 官方文档才是baba  官方https配置说明">
-<meta name="keywords" content="android">
+<meta name="description" content="watch    组件的写法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556571.new Vue(&amp;#123;    el: &amp;apos;#app&amp;apos;,    data:&amp;#123;         value:&amp;apos;&amp;apos;,    &amp;#125;,">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="okhttps配置https">
-<meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;2019&#x2F;10&#x2F;19&#x2F;okhttps%E9%85%8D%E7%BD%AEhttps&#x2F;index.html">
+<meta property="og:title" content="vue学习记录">
+<meta property="og:url" content="https:&#x2F;&#x2F;tangtingyun.github.io&#x2F;Hydrangea&#x2F;2019&#x2F;11&#x2F;09&#x2F;vue%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95&#x2F;index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="最近pos需要上hppts 需要配置 使用的是ssl pinning 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 ssl pinning 又分公钥锁定和证书锁定参考链接 刚开是在网上找的文章后来放弃了 官方文档才是baba  官方https配置说明">
+<meta property="og:description" content="watch    组件的写法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556571.new Vue(&amp;#123;    el: &amp;apos;#app&amp;apos;,    data:&amp;#123;         value:&amp;apos;&amp;apos;,    &amp;#125;,">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-11-09T09:11:13.445Z">
 <meta name="twitter:card" content="summary">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2019/10/19/okhttps配置https/"/>
+  <link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2019/11/09/vue学习记录/"/>
 
 
 
 
 
-  <title>okhttps配置https | 不动心</title>
+  <title>vue学习记录 | 不动心</title>
   
 
 
@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/10/19/okhttps%E9%85%8D%E7%BD%AEhttps/">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/11/09/vue%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xiao hong">
@@ -258,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">okhttps配置https</h1>
+          <h1 class="post-title" itemprop="name headline">vue学习记录</h1>
         
 
         <div class="post-meta">
@@ -270,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-19T11:10:49+00:00">
-                2019-10-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T22:28:16+00:00">
+                2019-11-09
               </time>
             
 
@@ -308,27 +308,14 @@
       
 
       
-        <p>最近pos需要上hppts 需要配置 使用的是<code>ssl pinning</code> 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 <code>ssl pinning</code> 又分公钥锁定和证书锁定<a href="https://www.infinisign.com/faq/what-is-ssl-pinning" target="_blank" rel="noopener">参考链接</a></p>
-<p>刚开是在网上找的文章后来放弃了 官方文档才是baba</p>
+        <a id="more"></a>
 <ul>
-<li><a href="https://square.github.io/okhttp/https/" target="_blank" rel="noopener">官方https配置说明</a><a id="more"></a>
-
-</li>
+<li>watch </li>
 </ul>
-<h2 id="Certificate-Pinning"><a href="#Certificate-Pinning" class="headerlink" title="Certificate Pinning"></a>Certificate Pinning</h2><p>配置代码</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> client = OkHttpClient.Builder()</span><br><span class="line">    .certificatePinner(</span><br><span class="line">        CertificatePinner.Builder()</span><br><span class="line">            .add(<span class="string">"publicobject.com"</span>, <span class="string">"sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig="</span>)</span><br><span class="line">            .build())</span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">val</span> request = Request.Builder()</span><br><span class="line">      .url(<span class="string">"https://publicobject.com/robots.txt"</span>)</span><br><span class="line">      .build()</span><br><span class="line"></span><br><span class="line">  client.newCall(request).execute().use &#123; response -&gt;</span><br><span class="line">    <span class="keyword">if</span> (!response.isSuccessful) <span class="keyword">throw</span> IOException(<span class="string">"Unexpected code <span class="variable">$response</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (certificate <span class="keyword">in</span> response.handshake!!.peerCertificates) &#123;</span><br><span class="line">      println(CertificatePinner.pin(certificate))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://github.com/square/okhttp/blob/ba2c676aaf2b825528955f61dd43004a5bd9ca98/okhttp/src/main/java/okhttp3/CertificatePinner.kt" target="_blank" rel="noopener">完整示例代码</a></li>
-</ul>
-<p>这个是官方给的<code>ssl pinning</code> 配置示例 但是我这样用没用 因为我怀疑我们公司用的是自签名证书 而<code>CertificatePinner.kt</code>里面有注释</p>
-<p><code>CertificatePinner can not be used to pin self-signed certificate if such certificate is not accepted by javax.net.ssl.TrustManager.</code></p>
-<h2 id="CustomTrust"><a href="#CustomTrust" class="headerlink" title="CustomTrust"></a>CustomTrust</h2><p>采用官方第二种方式 ok了</p>
-<ul>
-<li><a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/CustomTrust.java" target="_blank" rel="noopener">完整示例代码</a></li>
-</ul>
-<p>这个示例代码里有行注释</p>
-<p><code>See also {@link CertificatePinner}, which can limit trusted certificates while still using the host platform&#39;s built-in trust store.</code></p>
-<p> 大概可以猜出来 <code>CertificatePinner</code> 还是需要官方ca链认证的 而我这种情况应该是自签名 所以第一种不行 第二种行 </p>
+<ol>
+<li>组件的写法<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">         value:<span class="string">''</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    watch:&#123;</span><br><span class="line">        <span class="string">'value'</span>:&#123;</span><br><span class="line">            handler:<span class="string">'getData'</span>,</span><br><span class="line">            immediate:<span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">         getData:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">             <span class="built_in">console</span>.log(<span class="string">'get data'</span>,<span class="keyword">this</span>.value);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="number">2.</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">         obj:&#123;</span><br><span class="line">             name:<span class="string">''</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    watch:&#123;</span><br><span class="line">         <span class="string">'obj'</span>:&#123;</span><br><span class="line">            handler:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">            deep:<span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">         getData:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">             <span class="built_in">console</span>.log(<span class="string">'get data'</span>,<span class="keyword">this</span>.value);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="number">3.</span></span><br><span class="line"> <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     el: <span class="string">'#app'</span>,</span><br><span class="line">     data:&#123;</span><br><span class="line">         obj:&#123;</span><br><span class="line">             name:<span class="string">''</span></span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     watch:&#123;</span><br><span class="line">         <span class="string">'obj.name'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">             <span class="built_in">console</span>.log(value);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     methods:&#123;</span><br><span class="line">         getData:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">             <span class="built_in">console</span>.log(<span class="string">'get data'</span>,<span class="keyword">this</span>.value);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><a href="https://cn.vuejs.org/v2/api/#vm-watch" target="_blank" rel="noopener">API的写法</a><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vm.$watch( expOrFn, callback, [options] )</span><br><span class="line">参数：</span><br><span class="line">    &#123;string | <span class="built_in">Function</span>&#125; expOrFn</span><br><span class="line">    &#123;<span class="built_in">Function</span> | <span class="built_in">Object</span>&#125; callback</span><br><span class="line">    &#123;<span class="built_in">Object</span>&#125; [options]</span><br><span class="line">        &#123;boolean&#125; deep</span><br><span class="line">        &#123;boolean&#125; immediate</span><br><span class="line">返回值：&#123;<span class="built_in">Function</span>&#125; unwatch</span><br><span class="line"></span><br><span class="line">vm.$watch(<span class="string">'someObject'</span>/<span class="string">'a.b.c'</span>,, callback, &#123;</span><br><span class="line">  deep: <span class="literal">true</span>,</span><br><span class="line">  immediate: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
@@ -346,7 +333,7 @@
       
         <div class="post-tags">
           
-            <a href="/Hydrangea/tags/android/" rel="tag"># android</a>
+            <a href="/Hydrangea/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -359,8 +346,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Hydrangea/2019/10/11/handler-%E5%90%8C%E6%AD%A5%E5%B1%8F%E9%9A%9C/" rel="next" title="handler 同步屏障">
-                <i class="fa fa-chevron-left"></i> handler 同步屏障
+              <a href="/Hydrangea/2019/11/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0/" rel="next" title="深入理解java虚拟机笔记">
+                <i class="fa fa-chevron-left"></i> 深入理解java虚拟机笔记
               </a>
             
           </div>
@@ -368,10 +355,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Hydrangea/2019/10/19/%E6%AD%A3%E5%88%99%E5%B0%8F%E8%AE%B0/" rel="prev" title="正则小记">
-                正则小记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -423,17 +406,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -494,22 +468,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Certificate-Pinning"><span class="nav-number">1.</span> <span class="nav-text">Certificate Pinning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CustomTrust"><span class="nav-number">2.</span> <span class="nav-text">CustomTrust</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
