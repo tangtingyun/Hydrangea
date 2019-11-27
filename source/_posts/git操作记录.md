@@ -26,3 +26,7 @@ git tag -a ［name］ -m ［msg］  添加标签
 git ls-remote --tags        列出远程标签
 git push origin [tagname]   推送标签
 ```
+### 刷新远程分支状态
+```
+git remote update origin --prune
+```
