@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/11/11/android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/12/17/leakcanary%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xiao hong">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Hydrangea/2019/11/11/android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url">android性能优化</a></h1>
+                <a class="post-title-link" href="/Hydrangea/2019/12/17/leakcanary%E5%AD%A6%E4%B9%A0/" itemprop="url">leakcanary学习</a></h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T22:15:41+00:00">
-                2019-11-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-17T14:09:11+00:00">
+                2019-12-17
               </time>
             
 
@@ -314,9 +314,29 @@
           
             <a id="more"></a>
 
-<ul>
-<li><a href="https://developer.android.google.cn/studio/debug/layout-inspector" target="_blank" rel="noopener">layout-inspector</a></li>
-</ul>
+<ol>
+<li>使用<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Add LeakCanary to build.<span class="string">gradle:</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// debugImplementation because LeakCanary should only run in debug builds.</span></span><br><span class="line">  debugImplementation <span class="string">'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'</span></span><br><span class="line">&#125;</span><br><span class="line">That’s it, there is no code change needed! LeakCanary will automatically </span><br><span class="line">show a notification when a memory leak is detected <span class="keyword">in</span> debug builds.</span><br></pre></td></tr></table></figure>
+官网说只用添加完依赖就可以自动开启监测, 比较好奇这点是怎么实现的 看了代码了解到是通过注册<code>ContentProvider</code>来实现自启动的<br>意外学到一个知识点``ContentProvider 在<code>app</code>启动的时候 由系统自动安装的 触发了<code>onCreate</code>方法 <code>leakCanary</code>的初始化入口也在这里<br><a href="https://www.jianshu.com/p/3c81df444034" target="_blank" rel="noopener">ContentProvider分析</a><br><a href="https://blog.csdn.net/zhenjie_chang/article/details/62889188" target="_blank" rel="noopener">ContentProvider分析</a><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Content providers are loaded before the application class is created. [AppWatcherInstaller] is</span></span><br><span class="line"><span class="comment"> * used to install [leakcanary.AppWatcher] on application start.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">internal</span> <span class="keyword">sealed</span> <span class="class"><span class="keyword">class</span> <span class="title">AppWatcherInstaller</span> : <span class="type">ContentProvider</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * [MainProcess] automatically sets up the LeakCanary code that runs in the main app process.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">MainProcess</span> : <span class="type">AppWatcherInstaller</span></span>()</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * When using the `leakcanary-android-process` artifact instead of `leakcanary-android`,</span></span><br><span class="line"><span class="comment">   * [LeakCanaryProcess] automatically sets up the LeakCanary code</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">LeakCanaryProcess</span> : <span class="type">AppWatcherInstaller</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">      <span class="keyword">super</span>.onCreate()</span><br><span class="line">      AppWatcher.config = AppWatcher.config.copy(enabled = <span class="literal">false</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> application = context!!.applicationContext <span class="keyword">as</span> Application</span><br><span class="line">    InternalAppWatcher.install(application)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>分析<br>源码拉下来后看到 分了很多层module<br>leakcanary-object-warcher –&gt; leakcanary-object-watcher-android –&gt; leakcanary-object-watcher-android-androidX</li>
+<li><ol>
+<li>leakcanary-object-warcher<br>leakcanary-object-warcher实现了弱引用监测和gc的触发 包含以下类<br><code>Clock</code><br><code>GcTrigger</code><br><code>KeyedWeakReference</code><br><code>ObjectWatcher</code><br><code>OnObjectRetainedListener</code><br>关键代码就在<code>ObjectWatcher</code>里面<br>如果<code>weakReference</code>被gc回收了就会放到对应的<code>ReferenceQueue</code>队列中，也就是说在队列里的 就表明内存被回收了 没有泄露 所以每次都会调用这个方法来检查是否被回收了<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">removeWeaklyReachableObjects</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// WeakReferences are enqueued as soon as the object to which they point to becomes weakly</span></span><br><span class="line">  <span class="comment">// reachable. This is before finalization or garbage collection has actually happened.</span></span><br><span class="line">  <span class="keyword">var</span> ref: KeyedWeakReference?</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">  ref = queue.poll() <span class="keyword">as</span> KeyedWeakReference?</span><br><span class="line">  <span class="comment">// 如果已经被回收了 就从监控集合中移除掉 </span></span><br><span class="line">  <span class="keyword">if</span> (ref != <span class="literal">null</span>) &#123;</span><br><span class="line">      watchedObjects.remove(ref.key)</span><br><span class="line">  &#125;</span><br><span class="line">  &#125; <span class="keyword">while</span> (ref != <span class="literal">null</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<code>OnObjectRetainedListener</code>接口用来通知 有变量泄露了<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Listener used by [ObjectWatcher] to report retained objects.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">OnObjectRetainedListener</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+当外界调用<code>watch</code>方法的时候<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Watches the provided [watchedObject].</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> name A logical identifier for the watched object.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Synchronized</span> <span class="function"><span class="keyword">fun</span> <span class="title">watch</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    watchedObject: <span class="type">Any</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    name: <span class="type">String</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span> &#123;</span><br><span class="line">    <span class="comment">//会多次调用这个方法 这点还没理解透彻 反正每次都是为了检查对象是否已经被会回收</span></span><br><span class="line">    removeWeaklyReachableObjects()</span><br><span class="line">    <span class="keyword">val</span> key = UUID.randomUUID()</span><br><span class="line">        .toString()</span><br><span class="line">    <span class="keyword">val</span> watchUptimeMillis = clock.uptimeMillis()</span><br><span class="line">    <span class="comment">// 生成KeyedWeakReference对象</span></span><br><span class="line">    <span class="keyword">val</span> reference = KeyedWeakReference(watchedObject, key, name, watchUptimeMillis, queue)</span><br><span class="line">    <span class="comment">// 保存到 watchedObjects 数组</span></span><br><span class="line">    watchedObjects[key] = reference</span><br><span class="line">    <span class="comment">// 检查是否泄露    </span></span><br><span class="line">    checkRetainedExecutor.execute &#123;</span><br><span class="line">        moveToRetained(key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>2 leakcanary-object-watcher-android分析<br>  那什么时候调用<code>watch</code>方法呢,在android层次的实现是<br>  <code>ActivityDestroyWatcher</code> -&gt; <code>application.registerActivityLifecycleCallbacks(activityDestroyWatcher.lifecycleCallbacks)</code><pre><code class="kotlin"><span class="keyword">private</span> <span class="keyword">val</span> lifecycleCallbacks =
+  <span class="keyword">object</span> : Application.ActivityLifecycleCallbacks <span class="keyword">by</span> noOpDelegate() {
+      <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityDestroyed</span><span class="params">(activity: <span class="type">Activity</span>)</span></span> {
+          <span class="keyword">if</span> (configProvider().watchActivities) {
+              <span class="comment">// 在onActivityDestroyed回调里 观察activity是否泄露</span>
+              objectWatcher.watch(activity)
+          }
+      }
+  }</code></pre>
+  这里有个<code>kotlin</code>的知识点<br>  <a href="https://kotlinlang.org/docs/reference/delegation.html#implementation-by-delegation" target="_blank" rel="noopener">关键字by</a> 上面这种写法<br>  应该是为了不想实现太多接口方法 所以写了一个通用实现，然后再复写方法 整个库都是kotlin重写的 歪果仁真是牛鼻</li>
+<li>3 通过接口通知上层有内存泄漏时 触发<code>HeapDumpTrigger</code>相关逻辑最后通过<code>Debug.dumpHprofData(heapDumpFile.absolutePath)</code>生成<code>.dump</code>文件<br>  还通过<code>HeapAnalyzerService</code>后台服务分析<code>dump</code>文件将生成的结果通过页面展示出来 </li>
+</ol>
+<p><a href="https://blog.csdn.net/kingzone_2008/article/details/9083327" target="_blank" rel="noopener">Java堆：Shallow Size和Retained Size</a></p>
 
           
         
@@ -446,6 +466,131 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/11/11/android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Hydrangea/2019/11/11/android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url">android性能优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T22:15:41+00:00">
+                2019-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+
+<ul>
+<li><a href="https://developer.android.google.cn/studio/debug/layout-inspector" target="_blank" rel="noopener">layout-inspector</a></li>
+<li><a href="https://www.androidperformance.com/2019/10/22/Android-Choreographer/" target="_blank" rel="noopener">Choreographer机制讲解</a></li>
+</ul>
+
+          
         
       
     </div>
@@ -1353,130 +1498,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/Hydrangea/2019/10/26/android-%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9view%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiao hong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不动心">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Hydrangea/2019/10/26/android-%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9view%E5%8F%82%E6%95%B0/" itemprop="url">android 动态修改view参数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-26T22:23:48+00:00">
-                2019-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>动态修改view参数的几种方法<br><a href="https://liuwangshu.cn/application/view/2-sliding.html" target="_blank" rel="noopener">刘皇叔的博客</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Hydrangea/2019/10/26/android-%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9view%E5%8F%82%E6%95%B0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1527,7 +1548,7 @@
               
                 <a href="/Hydrangea/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1540,7 +1561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/Hydrangea/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
