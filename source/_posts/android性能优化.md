@@ -8,3 +8,4 @@ tags: android
 <!-- more -->
 
 - [layout-inspector](https://developer.android.google.cn/studio/debug/layout-inspector)
+- [Choreographer机制讲解](https://www.androidperformance.com/2019/10/22/Android-Choreographer/)

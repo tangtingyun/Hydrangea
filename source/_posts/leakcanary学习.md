@@ -1,7 +1,11 @@
 ---
 title: leakcanary学习
-tags:  源码学习
+tags: 源码学习
+date: 2019-12-17 14:09:11
 ---
+
+<!-- more -->
+
 1. 使用
 ```groovy
 Add LeakCanary to build.gradle:
