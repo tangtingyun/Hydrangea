@@ -4,8 +4,6 @@ tags: 源码学习
 date: 2019-12-17 14:09:11
 ---
 
-<!-- more -->
-
 1. 使用
 ```groovy
 Add LeakCanary to build.gradle:
@@ -16,6 +14,7 @@ dependencies {
 That’s it, there is no code change needed! LeakCanary will automatically 
 show a notification when a memory leak is detected in debug builds.
 ```
+<!-- more -->
 官网说只用添加完依赖就可以自动开启监测, 比较好奇这点是怎么实现的 看了代码了解到是通过注册`ContentProvider`来实现自启动的 
 意外学到一个知识点``ContentProvider 在`app`启动的时候 由系统自动安装的 触发了`onCreate`方法 `leakCanary`的初始化入口也在这里 
 [ContentProvider分析](https://www.jianshu.com/p/3c81df444034)

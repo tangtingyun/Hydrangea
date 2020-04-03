@@ -5,10 +5,10 @@ description:重打包arr 修复bug
 tags:
 ---
 
-<!-- more -->
 1. [参考资料1](https://blog.csdn.net/stil_king/article/details/89574538)
 2. [参考资料2](https://blog.csdn.net/q610098308/article/details/79738557)
 客服小姐姐说应用会在android10上崩溃,我就去看问题
+<!-- more -->
 项目集成的有百度异常统计 去统计后台看日志 兰儿并没有 what? 因为公司没android10手机 只好在卡卡的机器上跑模拟器
 定位下来是因为第三方sdk 在启动初始化的时候获取了imei号 可是android10上面返回了null,sdk拿到imei后请求了接口
 okhttp -> addHeader, 因为value = null 直接异常了

@@ -5,7 +5,7 @@ tags: android-view
 ---
 encapsulates 封装
 
-view 相关参数记录
+view 测量参数记录
 <!-- more -->
 1. **`MeasureSpec`**
 
