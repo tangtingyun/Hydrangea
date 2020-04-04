@@ -20,18 +20,25 @@
     var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="王二的blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不动心">
-<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/tags/interview/index.html">
+  <meta name="description" content="TCP学习记录TCP是面向连接的 可靠的 基于字节流的协议 TCP握手的目标:  同步Sequence序列号初始序列号ISN(Initial Sequence Number) 由系统随机产生 交换TCP通讯参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tcp学习">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/Tcp%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="王二的blog">
+<meta property="og:description" content="TCP学习记录TCP是面向连接的 可靠的 基于字节流的协议 TCP握手的目标:  同步Sequence序列号初始序列号ISN(Initial Sequence Number) 由系统随机产生 交换TCP通讯参数">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/images/tcp-hand.png">
+<meta property="og:image" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/images/MSS.png">
+<meta property="og:image" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/images/tcp_close.png">
+<meta property="og:image" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/images/tcp_state.png">
+<meta property="article:published_time" content="2020-04-03T20:20:27.000Z">
+<meta property="article:modified_time" content="2020-04-04T13:45:08.187Z">
 <meta property="article:author" content="xiao hong">
 <meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangtingyun.github.io/Hydrangea/2020/04/03/images/tcp-hand.png">
 
-<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/tags/interview/">
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2020/04/03/Tcp%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -39,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: interview | 不动心</title>
+  <title>Tcp学习 | 不动心</title>
   
 
 
@@ -147,51 +154,95 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">interview
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2020/04/03/Tcp%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tcp学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-03 20:20:27" itemprop="dateCreated datePublished" datetime="2020-04-03T20:20:27+00:00">2020-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-04 13:45:08" itemprop="dateModified" datetime="2020-04-04T13:45:08+00:00">2020-04-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
+        <h4 id="TCP学习记录"><a href="#TCP学习记录" class="headerlink" title="TCP学习记录"></a>TCP学习记录</h4><p><code>TCP</code>是面向连接的 可靠的 基于字节流的协议</p>
+<p><code>TCP握手的目标</code>:</p>
+<ul>
+<li>同步<code>Sequence</code>序列号<br>初始序列号<code>ISN</code>(Initial Sequence Number) 由系统随机产生</li>
+<li>交换TCP通讯参数<a id="more"></a>
+
+</li>
+</ul>
+<p>图片来源极客时间课程&lt;Web协议详解与抓包实战&gt;<br><img src="../images/tcp-hand.png" alt="TCP三次握手的状态"></p>
+<p><img src="../images/MSS.png" alt="MSS"></p>
+<p><img src="../images/tcp_close.png" alt="TCP断开连接"></p>
+<p><img src="../images/tcp_state.png" alt="TCP状态机"></p>
+<p><code>syn</code>攻击：只向服务器发送syn包 不发ack包 是服务器大量连接状态处于<code>SYN-RECEIVED</code>状态 消耗资源<br><code>ISN</code> </p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-01T07:47:49+00:00"
-              content="2019-11-01">
-          11-01
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Hydrangea/2019/11/01/Interview/" itemprop="url">
-            <span itemprop="name">面试题记录</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2020/04/02/flutter%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="prev" title="flutter学习记录">
+      <i class="fa fa-chevron-left"></i> flutter学习记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -244,6 +295,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP学习记录"><span class="nav-number">1.</span> <span class="nav-text">TCP学习记录</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
