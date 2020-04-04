@@ -1,7 +1,7 @@
 ---
 title: flutter学习记录
 date: 2020-04-02 22:55:32
-tags:
+tags: flutter
 ---
 
 ### 周末在medium上看了两篇关于flutter适配不同分辨率的文章 觉得挺好的
