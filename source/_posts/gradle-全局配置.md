@@ -10,7 +10,7 @@ gradle 全局 init.gradle 配置
 
  - [官方文档](https://docs.gradle.org/current/userguide/init_scripts.html)
  - [阿里云镜像文档](https://maven.aliyun.com/mvn/view)
- - [参考示例](https://github.com/gzu-liyujiang/AliyunGradleConfig/blob/master/gradle/init.d/init.gradle)
+ - [参考文章](https://blog.csdn.net/lj402159806/article/details/78422953)
 
     根据文档 可以在用户路径下.gradle文件夹下创建init.gradle 来指定全局配置
 
