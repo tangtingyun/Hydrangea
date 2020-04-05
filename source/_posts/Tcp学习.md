@@ -23,4 +23,4 @@ tags:
 ![TCP状态机](../images/tcp_state.png)
 
 `syn`攻击：只向服务器发送syn包 不发ack包 是服务器大量连接状态处于`SYN-RECEIVED`状态 消耗资源
-`ISN` 
+`ISN` :  初始化序列号
