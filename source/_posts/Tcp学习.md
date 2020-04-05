@@ -14,13 +14,13 @@ tags:
 <!-- more -->
 
 图片来源极客时间课程<Web协议详解与抓包实战>
-![TCP三次握手的状态](../images/tcp-hand.png)
+![tcp-hand.png](https://i.loli.net/2020/04/05/oc9ldYKy7TqkfUN.png)
 
-![MSS](../images/MSS.png)
+![MSS.png](https://i.loli.net/2020/04/05/LxkfZ1alJSOwc7W.png)
 
-![TCP断开连接](../images/tcp_close.png)
+![tcp_close.png](https://i.loli.net/2020/04/05/I3eSs7yJFA8x2DK.png)
 
-![TCP状态机](../images/tcp_state.png)
+![tcp_state.png](https://i.loli.net/2020/04/05/xPB4FqgIhAbVlJZ.png)
 
 `syn`攻击：只向服务器发送syn包 不发ack包 是服务器大量连接状态处于`SYN-RECEIVED`状态 消耗资源
 `ISN` :  初始化序列号
