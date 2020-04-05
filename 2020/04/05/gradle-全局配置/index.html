@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="王二的blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/tags/index.html">
+  <meta name="description" content="gradle 全局 init.gradle 配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gradle 全局配置">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2020/04/05/gradle-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="王二的blog">
+<meta property="og:description" content="gradle 全局 init.gradle 配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-10-29T22:54:34.000Z">
-<meta property="article:modified_time" content="2020-04-05T08:03:39.649Z">
+<meta property="article:published_time" content="2020-04-05T15:35:52.000Z">
+<meta property="article:modified_time" content="2020-04-05T08:03:39.633Z">
 <meta property="article:author" content="xiao hong">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="gralde">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/tags/">
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2020/04/05/gradle-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/">
 
 
 <script id="page-configurations">
@@ -41,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>tags | 不动心
-</title>
+  <title>gradle 全局配置 | 不动心</title>
   
 
 
@@ -149,51 +148,113 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2020/04/05/gradle-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gradle 全局配置
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">tags
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2020-04-05 15:35:52 / 修改时间：08:03:39" itemprop="dateCreated datePublished" datetime="2020-04-05T15:35:52+00:00">2020-04-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>gradle 全局 init.gradle 配置</p>
+<a id="more"></a>
+<p> <em>受够了gradle构建慢 也受够了每次都手动添加国内镜像 决定一步到位</em></p>
+<ul>
+<li><p><a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener">官方文档</a></p>
+</li>
+<li><p><a href="https://maven.aliyun.com/mvn/view" target="_blank" rel="noopener">阿里云镜像文档</a></p>
+</li>
+<li><p><a href="https://github.com/gzu-liyujiang/AliyunGradleConfig/blob/master/gradle/init.d/init.gradle" target="_blank" rel="noopener">参考示例</a></p>
+<p> 根据文档 可以在用户路径下.gradle文件夹下创建init.gradle 来指定全局配置</p>
+</li>
+</ul>
+<pre><code class="groovy">buildscript {
+    repositories {
+        maven{ url <span class="string">'https://maven.aliyun.com/repository/public'</span>}
+        maven { url <span class="string">'https://maven.aliyun.com/repositories/jcenter'</span> }
+        maven { url <span class="string">'https://maven.aliyun.com/repositories/google'</span> }
+        maven { url <span class="string">'https://maven.aliyun.com/repository/central'</span> }
+    }
+}
+
+allprojects {
+    repositories {
+        maven{ url <span class="string">'https://maven.aliyun.com/repository/public'</span>}
+        maven { url <span class="string">'https://maven.aliyun.com/repositories/jcenter'</span> }
+        maven { url <span class="string">'https://maven.aliyun.com/repositories/google'</span> }
+        maven { url <span class="string">'https://maven.aliyun.com/repository/central'</span> }
+        maven { url <span class="string">"https://jitpack.io"</span> }
+    }
+}</code></pre>
+<p>ok 搞定 :)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Hydrangea/tags/gralde/" rel="tag"># gralde</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2020/04/03/Tcp%E5%AD%A6%E4%B9%A0/" rel="prev" title="Tcp学习">
+      <i class="fa fa-chevron-left"></i> Tcp学习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              目前共计 13 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/Hydrangea/tags/android/" style="font-size: 30px; color: #111">android</a> <a href="/Hydrangea/tags/android-view/" style="font-size: 21px; color: #6f6f6f">android-view</a> <a href="/Hydrangea/tags/css/" style="font-size: 12px; color: #ccc">css</a> <a href="/Hydrangea/tags/flutter/" style="font-size: 12px; color: #ccc">flutter</a> <a href="/Hydrangea/tags/git/" style="font-size: 12px; color: #ccc">git</a> <a href="/Hydrangea/tags/gralde/" style="font-size: 12px; color: #ccc">gralde</a> <a href="/Hydrangea/tags/html/" style="font-size: 12px; color: #ccc">html</a> <a href="/Hydrangea/tags/interview/" style="font-size: 12px; color: #ccc">interview</a> <a href="/Hydrangea/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/Hydrangea/tags/react/" style="font-size: 12px; color: #ccc">react</a> <a href="/Hydrangea/tags/regex/" style="font-size: 12px; color: #ccc">regex</a> <a href="/Hydrangea/tags/vue/" style="font-size: 12px; color: #ccc">vue</a> <a href="/Hydrangea/tags/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" style="font-size: 12px; color: #ccc">源码学习</a>
-            </div>
-          </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
