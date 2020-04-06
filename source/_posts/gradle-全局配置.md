@@ -15,22 +15,73 @@ gradle 全局 init.gradle 配置
     根据文档 可以在用户路径下.gradle文件夹下创建init.gradle 来指定全局配置
 
 ```groovy
+def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/repository/public/'
+def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/repository/jcenter/'
+def ALIYUN_GOOGLE_URL = 'https://maven.aliyun.com/repository/google/'
+def ALIYUN_GRADLE_PLUGIN_URL = 'https://maven.aliyun.com/repository/gradle-plugin/'
+
 buildscript {
     repositories {
-        maven{ url 'https://maven.aliyun.com/repository/public'}
-        maven { url 'https://maven.aliyun.com/repositories/jcenter' }
-        maven { url 'https://maven.aliyun.com/repositories/google' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
+
+        all { ArtifactRepository repo ->
+            if (repo instanceof MavenArtifactRepository) {
+                def url = repo.url.toString()
+                if (url.startsWith('https://repo1.maven.org/maven2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://jcenter.bintray.com/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://dl.google.com/dl/android/maven2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_GOOGLE_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://plugins.gradle.org/m2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_GRADLE_PLUGIN_URL."
+                    remove repo
+                }
+            }
+        }
+
+
+        maven { url ALIYUN_REPOSITORY_URL }
+        maven { url ALIYUN_JCENTER_URL }
+        maven { url ALIYUN_GOOGLE_URL }
+        maven { url ALIYUN_GRADLE_PLUGIN_URL }
     }
 }
 
 allprojects {
     repositories {
-        maven{ url 'https://maven.aliyun.com/repository/public'}
-        maven { url 'https://maven.aliyun.com/repositories/jcenter' }
-        maven { url 'https://maven.aliyun.com/repositories/google' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url "https://jitpack.io" }
+
+        all { ArtifactRepository repo ->
+            if (repo instanceof MavenArtifactRepository) {
+                def url = repo.url.toString()
+                if (url.startsWith('https://repo1.maven.org/maven2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://jcenter.bintray.com/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://dl.google.com/dl/android/maven2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_GOOGLE_URL."
+                    remove repo
+                }
+                if (url.startsWith('https://plugins.gradle.org/m2/')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_GRADLE_PLUGIN_URL."
+                    remove repo
+                }
+            }
+        }
+
+        maven { url ALIYUN_REPOSITORY_URL }
+        maven { url ALIYUN_JCENTER_URL }
+        maven { url ALIYUN_GOOGLE_URL }
+        maven { url ALIYUN_GRADLE_PLUGIN_URL }
     }
 }
 ```   
