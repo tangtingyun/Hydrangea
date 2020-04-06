@@ -28,7 +28,7 @@
 <meta property="og:description" content="gradle 全局 init.gradle 配置">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-05T15:35:52.000Z">
-<meta property="article:modified_time" content="2020-04-05T09:10:58.256Z">
+<meta property="article:modified_time" content="2020-04-06T00:56:07.092Z">
 <meta property="article:author" content="xiao hong">
 <meta property="article:tag" content="gralde">
 <meta name="twitter:card" content="summary">
@@ -178,10 +178,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-05 15:35:52 / 修改时间：09:10:58" itemprop="dateCreated datePublished" datetime="2020-04-05T15:35:52+00:00">2020-04-05</time>
+              <time title="创建时间：2020-04-05 15:35:52" itemprop="dateCreated datePublished" datetime="2020-04-05T15:35:52+00:00">2020-04-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-06 00:56:07" itemprop="dateModified" datetime="2020-04-06T00:56:07+00:00">2020-04-06</time>
+              </span>
 
           
 
@@ -206,22 +212,73 @@
 <p> 根据文档 可以在用户路径下.gradle文件夹下创建init.gradle 来指定全局配置</p>
 </li>
 </ul>
-<pre><code class="groovy">buildscript {
+<pre><code class="groovy"><span class="keyword">def</span> ALIYUN_REPOSITORY_URL = <span class="string">'https://maven.aliyun.com/repository/public/'</span>
+<span class="keyword">def</span> ALIYUN_JCENTER_URL = <span class="string">'https://maven.aliyun.com/repository/jcenter/'</span>
+<span class="keyword">def</span> ALIYUN_GOOGLE_URL = <span class="string">'https://maven.aliyun.com/repository/google/'</span>
+<span class="keyword">def</span> ALIYUN_GRADLE_PLUGIN_URL = <span class="string">'https://maven.aliyun.com/repository/gradle-plugin/'</span>
+
+buildscript {
     repositories {
-        maven{ url <span class="string">'https://maven.aliyun.com/repository/public'</span>}
-        maven { url <span class="string">'https://maven.aliyun.com/repositories/jcenter'</span> }
-        maven { url <span class="string">'https://maven.aliyun.com/repositories/google'</span> }
-        maven { url <span class="string">'https://maven.aliyun.com/repository/central'</span> }
+
+        all { ArtifactRepository repo -&gt;
+            <span class="keyword">if</span> (repo <span class="keyword">instanceof</span> MavenArtifactRepository) {
+                <span class="keyword">def</span> url = repo.url.toString()
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://repo1.maven.org/maven2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://jcenter.bintray.com/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://dl.google.com/dl/android/maven2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_GOOGLE_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://plugins.gradle.org/m2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_GRADLE_PLUGIN_URL."</span>
+                    remove repo
+                }
+            }
+        }
+
+
+        maven { url ALIYUN_REPOSITORY_URL }
+        maven { url ALIYUN_JCENTER_URL }
+        maven { url ALIYUN_GOOGLE_URL }
+        maven { url ALIYUN_GRADLE_PLUGIN_URL }
     }
 }
 
 allprojects {
     repositories {
-        maven{ url <span class="string">'https://maven.aliyun.com/repository/public'</span>}
-        maven { url <span class="string">'https://maven.aliyun.com/repositories/jcenter'</span> }
-        maven { url <span class="string">'https://maven.aliyun.com/repositories/google'</span> }
-        maven { url <span class="string">'https://maven.aliyun.com/repository/central'</span> }
-        maven { url <span class="string">"https://jitpack.io"</span> }
+
+        all { ArtifactRepository repo -&gt;
+            <span class="keyword">if</span> (repo <span class="keyword">instanceof</span> MavenArtifactRepository) {
+                <span class="keyword">def</span> url = repo.url.toString()
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://repo1.maven.org/maven2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://jcenter.bintray.com/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://dl.google.com/dl/android/maven2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_GOOGLE_URL."</span>
+                    remove repo
+                }
+                <span class="keyword">if</span> (url.startsWith(<span class="string">'https://plugins.gradle.org/m2/'</span>)) {
+                    project.logger.lifecycle <span class="string">"Repository ${repo.url} replaced by $ALIYUN_GRADLE_PLUGIN_URL."</span>
+                    remove repo
+                }
+            }
+        }
+
+        maven { url ALIYUN_REPOSITORY_URL }
+        maven { url ALIYUN_JCENTER_URL }
+        maven { url ALIYUN_GOOGLE_URL }
+        maven { url ALIYUN_GRADLE_PLUGIN_URL }
     }
 }</code></pre>
 <p>ok 搞定 :)</p>
