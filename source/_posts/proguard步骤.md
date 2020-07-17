@@ -17,10 +17,14 @@ Optimized code->Obfusscated code:obfuscate
 ```sequence
 Obfusscated code->Output code:preverify
 ```
-### Entry points
+
+## Entry points
+
     关键方法入口 需要keep的资源 比如反射
-### Step
+
+## Step
+
 - shrink `根据入口 递归所有资源, 未使用的资源会被丢弃`
 - optimization `不是入口点的资源 可能被重置为 private static final 或者 inline`
 - obfuscation `重命名不是入口点的资源`
-- preverification `???`
+- preverification 
