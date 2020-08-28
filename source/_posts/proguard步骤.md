@@ -4,9 +4,9 @@ tags: java android
 date: 2020-04-21 16:38:41
 ---
 
-<!-- more -->
-
 混淆不只是表面看到的把方法名 变量 等变短了 还有压缩，优化字节码的功能
+
+<!-- more -->
 
 ```sequence
 Title:proguard
