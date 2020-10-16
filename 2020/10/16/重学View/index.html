@@ -20,18 +20,20 @@
     var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="王二的blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不动心">
-<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/tags/css/index.html">
+  <meta name="description" content="关于重学view绘制流程的想法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重学View">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/index.html">
 <meta property="og:site_name" content="不动心">
-<meta property="og:description" content="王二的blog">
+<meta property="og:description" content="关于重学view绘制流程的想法">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-16T13:17:12.000Z">
+<meta property="article:modified_time" content="2020-10-16T05:19:52.700Z">
 <meta property="article:author" content="xiao hong">
 <meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/tags/css/">
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/">
 
 
 <script id="page-configurations">
@@ -39,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: css | 不动心</title>
+  <title>重学View | 不动心</title>
   
 
 
@@ -147,51 +149,107 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">css
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重学View
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-16 13:17:12 / 修改时间：05:19:52" itemprop="dateCreated datePublished" datetime="2020-10-16T13:17:12+00:00">2020-10-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
+        <p> 关于重学view绘制流程的想法</p>
+<a id="more"></a>
+<h1 id="关于重学view绘制流程的想法"><a href="#关于重学view绘制流程的想法" class="headerlink" title="关于重学view绘制流程的想法"></a>关于重学view绘制流程的想法</h1><ol>
+<li>不同viewgroup对待子view的测量算法不同 (从算法的角度来考虑)<ol>
+<li>LinearLayout的高度算法是 垂直方向不断叠加子view的高度</li>
+<li>RelativeLayout的高度算法是指定子view里面最高的</li>
+</ol>
+</li>
+<li>关于ViewParent<ol>
+<li>requestLayout的精髓 在于找到ViewParent对象 向上调用</li>
+<li>我们通俗理解的View 包含两类 容器类 和 原子类 由此来形成控件树</li>
+<li>但是最顶层的DecorView 的 Parent是谁呢   就是 ViewRootImpl  在WindowManagerGlobal#addView的方法里调用ViewRootImpl#setView方法的时候assignParent了this 自此就可以控制三大绘制流程了</li>
+</ol>
+</li>
+<li>关于MeasureSpec的获取 <ol>
+<li>ViewGroup#getChildMeasureSpec  这个方法 就是经典的根据父容器的测量模式和子view要求的LayoutParams 来综合考虑 最终计算出子View的参考MeasureSpec</li>
+<li>View#resolveSizeAndState   相当于对wrap_content的修正</li>
+<li>View#getDefaultSize     这就是为什么自定义View的wrap_content会撑满父容器的理由 默认取了父容器的大小</li>
+</ol>
+</li>
+<li>关于wrap_content的理解<ol>
+<li>感觉这个就像equals 或 hashCode 方法一样 对于wrap_content 系统无法确定你的大小到底是多少 需要开发者自定义这个行为 你要自己去测量这个模式</li>
+</ol>
+</li>
+<li>对于measure layout draw<ol>
+<li>layout 和 draw 应该不会执行多次 但 measure会  </li>
+<li>有人把自定义view  比作从毛坯房到精装房的过程  我觉得还挺好的 就像室内设计师一样 你需要这里量量 那里量量 确定一下layout的位置 从这个角度想 measure多次 也就不过分了</li>
+<li>对于draw来说  就是另一片天地啦 :)</li>
+</ol>
+</li>
+</ol>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-22T22:15:41+00:00"
-              content="2019-10-22">
-          10-22
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/Hydrangea/2019/10/22/css-%E5%B0%8F%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">css 小记</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2020/09/11/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/" rel="prev" title="github搜索技巧">
+      <i class="fa fa-chevron-left"></i> github搜索技巧
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -244,6 +302,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于重学view绘制流程的想法"><span class="nav-number">1.</span> <span class="nav-text">关于重学view绘制流程的想法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
