@@ -21,6 +21,6 @@ tags:
 4. 关于wrap_content的理解
     1. 感觉这个就像equals 或 hashCode 方法一样 对于wrap_content 系统无法确定你的大小到底是多少 需要开发者自定义这个行为 你要自己去测量这个模式
 5. 对于measure layout draw
-    1. layout 和 draw 应该不会执行多次 但 measure会  
+    1. measure 和 layout 可能会执行多次  
     2. 有人把自定义view  比作从毛坯房到精装房的过程  我觉得还挺好的 就像室内设计师一样 你需要这里量量 那里量量 确定一下layout的位置 从这个角度想 measure多次 也就不过分了
     3. 对于draw来说  就是另一片天地啦 :)
