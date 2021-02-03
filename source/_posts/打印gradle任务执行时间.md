@@ -5,7 +5,7 @@ tags: gradle
 ---
 注册gradle listener 监听任务构建时间
 <!-- more -->
-
+参考 https://www.jianshu.com/p/0667ce29f715
 添加在setting.gradle 文件下
 - 通过TaskExecutionListener监听任务
 - 通过BuildListener控制输出log时机
