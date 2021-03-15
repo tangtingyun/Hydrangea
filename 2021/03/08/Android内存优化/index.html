@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Hydrangea/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Hydrangea/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Hydrangea/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Hydrangea/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Hydrangea/css/main.css">
+
+
+<link rel="stylesheet" href="/Hydrangea/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="内存优化琐碎记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的内存优化">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2021/03/08/Android%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="不动心">
+<meta property="og:description" content="内存优化琐碎记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-08T21:44:13.000Z">
+<meta property="article:modified_time" content="2021-03-15T14:09:18.688Z">
+<meta property="article:author" content="xiao hong">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2021/03/08/Android%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android中的内存优化 | 不动心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Hydrangea/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不动心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Hydrangea/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Hydrangea/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Hydrangea/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2021/03/08/Android%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android中的内存优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-08 21:44:13" itemprop="dateCreated datePublished" datetime="2021-03-08T21:44:13+00:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-15 14:09:18" itemprop="dateModified" datetime="2021-03-15T14:09:18+00:00">2021-03-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>内存优化琐碎记录</p>
+<a id="more"></a>
+<h3 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h3><ul>
+<li>标记清除算法<ul>
+<li>Mark-Sweep算法，如它的名字一样，算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收掉所有被标记的对象。</li>
+<li>缺点 效率略低 两边扫描 位置不连续 产生碎片（当需要分配较大对象时 没有连续内存 不得不再次GC）</li>
+</ul>
+</li>
+<li>复制算法<ul>
+<li>Copying 算法，它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另一块上面，然后再把已使用过的内存空间一次清理掉</li>
+<li>实现简单 运行高效 没有内存碎片  利用率只有一半</li>
+</ul>
+</li>
+<li>标记整理算法<ul>
+<li>标记整理算法采用和标记清除算法一样的方式进行对象的标记，但在清除时不同，在回收不存活的对象占用的空间后，会将所有的存活对象往空闲空间移动，并更新对应的指针。因此成本更高，但是解决了内存碎片的问题</li>
+<li>没有内存碎片 效率偏低  两遍扫描 指针需要调整<h3 id="Android内存分配与回收机制"><a href="#Android内存分配与回收机制" class="headerlink" title="Android内存分配与回收机制"></a>Android内存分配与回收机制</h3></li>
+</ul>
+</li>
+<li>内存分配<br>Android的Heap空间是一个Generational Heap Memory的模型(这是个啥。。。 懒得查了 太术语)，最近分配的对象会存放在<code>Young Generation</code>区域，<br>当一个对象在这个区域停留的时间达到一定程度，它会被移动到<code>old Generation</code>，最后累积一定时间再移动到<code>Permanent Generation</code>区域。</li>
+<li>Young Generation<br>GC使用复制算法 (扫描出存活的对象，并复制到一块新的完全未使用的空间中)<br>由一个Eden区和两个Survivor区组成，程序中生成的大部分新的对象都在Eden区中，当Eden区满时，还存活的对象将被复制到其中一个Survivor区，当此Survivor区满时，<br>此区存活的对象又被复制到另一个Survivor区，当这个Survivor区也满时，会将其中存活的对象复制到年老代。</li>
+<li>Old Generation<br>GC使用标记整理算法 (扫描出存活的对象，然后再回收未被标记的对象，回收后对空出的空间要么合并，要么标记出来便于下次分配，以减少内存碎片带来的损耗)<br>一般情况下，年老代中的对象生命周期都比较长。</li>
+<li>Permanent Generation<br>用于存放静态的类和方法，持久代对垃圾回收没有显著影响。</li>
+</ul>
+<h3 id="Android低内存杀进程机制"><a href="#Android低内存杀进程机制" class="headerlink" title="Android低内存杀进程机制"></a>Android低内存杀进程机制</h3><p>Android基于进程中运行的组件及其状态规定了默认的五个回收优先级:</p>
+<ul>
+<li>Empty process 空进程</li>
+<li>Background process 后台进程</li>
+<li>Service process 服务进程</li>
+<li>Visible process 可见进程</li>
+<li>Foreground process 前台进程<br>AMS会对所有的进程进行评分(存放在变量adj中)，然后再将这个评分更新到内核，由内核去完成真正的内存回收( lowmemorykille).</li>
+</ul>
+<h3 id="常用的数据结构"><a href="#常用的数据结构" class="headerlink" title="常用的数据结构"></a>常用的数据结构</h3><p>ArrayList   新增删除最坏时间复杂度O(n) System.arraycopy()  查找快 随机查找 时间复杂度O(1)<br>LinkedList  java中的实现是双向链表  新增删除快 移动指针 查找需要遍历 查找最坏时间复杂度O(n)<br>HashMap     数组加链表/红黑树 有自动扩容机制 没有自动缩容机制 链表数大于8且总数量大于64 会转换为红黑树</p>
+<ul>
+<li><p>Android 平台特有数据结构<br>ArrayMap  SparseArray 针对数据量小 </p>
+</li>
+<li><p>参考资料<br><a href="http://gaozhipeng.me/posts/arraymap/" target="_blank" rel="noopener">http://gaozhipeng.me/posts/arraymap/</a><br><a href="http://jiezhi.github.io/2017/03/30/android-arraymap-vs-sparsearray/" target="_blank" rel="noopener">http://jiezhi.github.io/2017/03/30/android-arraymap-vs-sparsearray/</a><br><a href="http://gityuan.com/2019/01/13/arraymap/" target="_blank" rel="noopener">http://gityuan.com/2019/01/13/arraymap/</a><br><a href="https://proandroiddev.com/all-you-need-to-know-about-arraymap-sparsearray-49759c2ecbf9" target="_blank" rel="noopener">https://proandroiddev.com/all-you-need-to-know-about-arraymap-sparsearray-49759c2ecbf9</a></p>
+</li>
+</ul>
+<h3 id="内存三大问题"><a href="#内存三大问题" class="headerlink" title="内存三大问题"></a>内存三大问题</h3><ul>
+<li>内存抖动<ul>
+<li>内存波动图形呈 锯齿状 GC导致卡顿</li>
+</ul>
+</li>
+<li>内存泄漏<ul>
+<li>在当前应用周期内不再使用的对象被GC Roots引用，导致不能回收，使实际可用内存变小</li>
+</ul>
+</li>
+<li>内存溢出<ul>
+<li>即OOM，OOM时会导致程序异常。</li>
+<li>Java堆内存溢出</li>
+<li>无足够连续内存空间</li>
+<li>FD数量超出限制</li>
+<li>线程数量超出限制</li>
+<li>虚拟内存不足</li>
+</ul>
+</li>
+</ul>
+<h3 id="Android内存分析命令"><a href="#Android内存分析命令" class="headerlink" title="Android内存分析命令"></a>Android内存分析命令</h3><ul>
+<li>dumpsys meminfo<ul>
+<li>查看进程的 oom adj</li>
+</ul>
+</li>
+<li>procrank<ul>
+<li>获取所有进程的内存使用排行榜</li>
+</ul>
+</li>
+<li>cat /proc/meminfo<ul>
+<li>查看内存信息</li>
+</ul>
+</li>
+<li>free<ul>
+<li>查看可用内存 数据来源于 /proc/meminfo</li>
+</ul>
+</li>
+<li>showmap<ul>
+<li>用于查看虚拟地址区域的内存情况</li>
+</ul>
+</li>
+<li>vmstat<ul>
+<li>周期性动态打印出进程运行队列，系统切换，CPU时间占比<h3 id="常见分析工具"><a href="#常见分析工具" class="headerlink" title="常见分析工具"></a>常见分析工具</h3></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Memory Analyzer Tools  (MAT)</li>
+<li>Memory Profiler AS自带</li>
+<li>LeakCanary 使用弱引用队列检测对象是否被回收</li>
+</ol>
+<h3 id="Android内存泄漏常见场景以及解决方案"><a href="#Android内存泄漏常见场景以及解决方案" class="headerlink" title="Android内存泄漏常见场景以及解决方案"></a>Android内存泄漏常见场景以及解决方案</h3><ul>
+<li>资源性对象未关闭<ul>
+<li>对于资源性对象不再使用时，应该立即调用它的close()函数，将其关闭，然后再置未null。</li>
+</ul>
+</li>
+<li>注册对象未注销<ul>
+<li>例如动态广播，EventBus未注销造成的内存泄漏，我们应该在Activity销毁时及时注销。</li>
+</ul>
+</li>
+<li>类的静态变量持有大数据对象<ul>
+<li>尽量避免使用静态变量存储数据，特别是大数据对象，建议使用数据库存储。</li>
+</ul>
+</li>
+<li>单例造成的内存泄漏<ul>
+<li>优先使用Application的Context，如需使用Activity的Context，可以在传入Context时使用弱引用进行封装。</li>
+</ul>
+</li>
+<li>非静态内部类<ul>
+<li>例如匿名handler，Message发出之后存储在MessageQueue中，在Message中存在一个target，它是Handler的一个引用，Message在Queue中存在的时间过长，就会导致Hander无法被回收。如果Hanlder是非静态的，则会导致外部Activity不会被回收，并且消息队列是在一个Looper中不断地轮询处理消息，当这个Activity退出时，消息还未来得及处理导致Activity资源无法及时回收，引发内存泄漏。</li>
+<li>解决方案 使用一个静态Handler内部类 以弱引用方式使用外部对象</li>
+<li>在外部对象生命周期结束时候，移除消息</li>
+</ul>
+</li>
+<li>容器中的对象没清理造成的内存泄漏<ul>
+<li>在退出程序之前，将集合里的东西clear，然后置为null，再退出程序</li>
+</ul>
+</li>
+<li>动画<ul>
+<li>在页面不可见时 取消动画</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Hydrangea/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2021/03/07/Webview%E4%BC%98%E5%8C%96/" rel="prev" title="Webview优化">
+      <i class="fa fa-chevron-left"></i> Webview优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2021/03/14/Android%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" rel="next" title="Android中的异常捕获">
+      Android中的异常捕获 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分配与回收机制"><span class="nav-number">2.</span> <span class="nav-text">Android内存分配与回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android低内存杀进程机制"><span class="nav-number">3.</span> <span class="nav-text">Android低内存杀进程机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的数据结构"><span class="nav-number">4.</span> <span class="nav-text">常用的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存三大问题"><span class="nav-number">5.</span> <span class="nav-text">内存三大问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分析命令"><span class="nav-number">6.</span> <span class="nav-text">Android内存分析命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见分析工具"><span class="nav-number">7.</span> <span class="nav-text">常见分析工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存泄漏常见场景以及解决方案"><span class="nav-number">8.</span> <span class="nav-text">Android内存泄漏常见场景以及解决方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xiao hong</p>
+  <div class="site-description" itemprop="description">王二的blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Hydrangea/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Hydrangea/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/a2eda606be5f" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;a2eda606be5f" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>简书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiao hong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Hydrangea/lib/anime.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Hydrangea/js/utils.js"></script>
+
+<script src="/Hydrangea/js/motion.js"></script>
+
+
+<script src="/Hydrangea/js/schemes/pisces.js"></script>
+
+
+<script src="/Hydrangea/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
