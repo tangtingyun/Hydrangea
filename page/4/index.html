@@ -153,6 +153,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2019/10/19/okhttps%E9%85%8D%E7%BD%AEhttps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hydrangea/2019/10/19/okhttps%E9%85%8D%E7%BD%AEhttps/" class="post-title-link" itemprop="url">okhttps配置https</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-19 11:10:49" itemprop="dateCreated datePublished" datetime="2019-10-19T11:10:49+00:00">2019-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近pos需要上hppts 需要配置 使用的是<code>ssl pinning</code> 我看了下理解就是把证书放到客户端本地读取验证 不走ca链 <code>ssl pinning</code> 又分公钥锁定和证书锁定<a href="https://www.infinisign.com/faq/what-is-ssl-pinning" target="_blank" rel="noopener">参考链接</a></p>
+<p>刚开是在网上找的文章后来放弃了 官方文档才是baba</p>
+<ul>
+<li><a href="https://square.github.io/okhttp/https/" target="_blank" rel="noopener">官方https配置说明</a>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Hydrangea/2019/10/19/okhttps%E9%85%8D%E7%BD%AEhttps/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2019/10/11/handler-%E5%90%8C%E6%AD%A5%E5%B1%8F%E9%9A%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hydrangea/2019/10/11/handler-%E5%90%8C%E6%AD%A5%E5%B1%8F%E9%9A%9C/" class="post-title-link" itemprop="url">handler 同步屏障</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-11 20:39:24" itemprop="dateCreated datePublished" datetime="2019-10-11T20:39:24+00:00">2019-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>  今天看来一篇文章 <a href="https://juejin.im/post/5d837cd1e51d4561cb5ddf66" target="_blank" rel="noopener">app卡顿分析</a>里面分析了view的绘制流程 提到在view.requestLayout的时候会通过handler发送一个同步屏障消息提高ui事件的优先级 去看下handler的源码学习一下</p>
+<p><code>handler</code>消息 分同步消息和异步消息  相当于消息分了等级 在开启同步屏障的时候 异步消息会有高的优先级 在消息队列里会优先被取出 核心方法下面这些</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Hydrangea/2019/10/11/handler-%E5%90%8C%E6%AD%A5%E5%B1%8F%E9%9A%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2019/10/01/git%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -184,7 +332,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-15 14:09:18" itemprop="dateModified" datetime="2021-03-15T14:09:18+00:00">2021-03-15</time>
+                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
               </span>
 
           
@@ -290,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Hydrangea/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
