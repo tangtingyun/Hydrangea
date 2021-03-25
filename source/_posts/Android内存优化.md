@@ -45,6 +45,12 @@ tags: Android
 - Permanent Generation
   用于存放静态的类和方法，持久代对垃圾回收没有显著影响。
 
+### GC root对象
+- 静态变量 常量
+- 局部变量表
+- 本地方法栈中的 变量表
+- 类加载器 Thread等
+
 ### Android低内存杀进程机制
 Android基于进程中运行的组件及其状态规定了默认的五个回收优先级:
 - Empty process 空进程
