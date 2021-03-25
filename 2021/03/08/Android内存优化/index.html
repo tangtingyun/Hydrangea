@@ -28,7 +28,7 @@
 <meta property="og:description" content="内存优化琐碎记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-08T21:44:13.000Z">
-<meta property="article:modified_time" content="2021-03-24T14:54:21.436Z">
+<meta property="article:modified_time" content="2021-03-25T15:04:39.624Z">
 <meta property="article:author" content="xiao hong">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -244,6 +244,12 @@
 <li>Young Generation<br>GC使用复制算法 (扫描出存活的对象，并复制到一块新的完全未使用的空间中)<br>由一个Eden区和两个Survivor区组成，程序中生成的大部分新的对象都在Eden区中，当Eden区满时，还存活的对象将被复制到其中一个Survivor区，当此Survivor区满时，<br>此区存活的对象又被复制到另一个Survivor区，当这个Survivor区也满时，会将其中存活的对象复制到年老代。</li>
 <li>Old Generation<br>GC使用标记整理算法 (扫描出存活的对象，然后再回收未被标记的对象，回收后对空出的空间要么合并，要么标记出来便于下次分配，以减少内存碎片带来的损耗)<br>一般情况下，年老代中的对象生命周期都比较长。</li>
 <li>Permanent Generation<br>用于存放静态的类和方法，持久代对垃圾回收没有显著影响。</li>
+</ul>
+<h3 id="GC-root对象"><a href="#GC-root对象" class="headerlink" title="GC root对象"></a>GC root对象</h3><ul>
+<li>静态变量 常量</li>
+<li>局部变量表</li>
+<li>本地方法栈中的 变量表</li>
+<li>类加载器 Thread等</li>
 </ul>
 <h3 id="Android低内存杀进程机制"><a href="#Android低内存杀进程机制" class="headerlink" title="Android低内存杀进程机制"></a>Android低内存杀进程机制</h3><p>Android基于进程中运行的组件及其状态规定了默认的五个回收优先级:</p>
 <ul>
@@ -425,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java对象内存布局"><span class="nav-number">1.</span> <span class="nav-text">Java对象内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分配与回收机制"><span class="nav-number">3.</span> <span class="nav-text">Android内存分配与回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android低内存杀进程机制"><span class="nav-number">4.</span> <span class="nav-text">Android低内存杀进程机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的数据结构"><span class="nav-number">5.</span> <span class="nav-text">常用的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存三大问题"><span class="nav-number">6.</span> <span class="nav-text">内存三大问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分析命令"><span class="nav-number">7.</span> <span class="nav-text">Android内存分析命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见分析工具"><span class="nav-number">8.</span> <span class="nav-text">常见分析工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存泄漏常见场景以及解决方案"><span class="nav-number">9.</span> <span class="nav-text">Android内存泄漏常见场景以及解决方案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java对象内存布局"><span class="nav-number">1.</span> <span class="nav-text">Java对象内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分配与回收机制"><span class="nav-number">3.</span> <span class="nav-text">Android内存分配与回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GC-root对象"><span class="nav-number">4.</span> <span class="nav-text">GC root对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android低内存杀进程机制"><span class="nav-number">5.</span> <span class="nav-text">Android低内存杀进程机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的数据结构"><span class="nav-number">6.</span> <span class="nav-text">常用的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存三大问题"><span class="nav-number">7.</span> <span class="nav-text">内存三大问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存分析命令"><span class="nav-number">8.</span> <span class="nav-text">Android内存分析命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见分析工具"><span class="nav-number">9.</span> <span class="nav-text">常见分析工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android内存泄漏常见场景以及解决方案"><span class="nav-number">10.</span> <span class="nav-text">Android内存泄漏常见场景以及解决方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -439,14 +445,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/Hydrangea/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Hydrangea/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

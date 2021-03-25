@@ -153,6 +153,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2021/03/25/JVM%E5%92%8CJava/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hydrangea/2021/03/25/JVM%E5%92%8CJava/" class="post-title-link" itemprop="url">JVM杂记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-25 21:51:02 / 修改时间：15:04:39" itemprop="dateCreated datePublished" datetime="2021-03-25T21:51:02+00:00">2021-03-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+
+<p>JVM 是一种规范<br>JVM 跟 java无关</p>
+<p>文档信息：<br>jvms13<br>jls12</p>
+<p>任何语言 -&gt;  class文件格式 -&gt; JVM运行</p>
+<p>JVM<br>JRE = jvm + core lib<br>JDK = jre + development kit</p>
+<p>类加载过程</p>
+<ul>
+<li>加载<ul>
+<li>classloader</li>
+</ul>
+</li>
+<li>链接 linking<ul>
+<li>verification   验证文件是否符合JVM规定</li>
+<li>preparation    静态成员变量赋默认值</li>
+<li>Resolution     将类，方法，属性等符号引用解析为直接引用 常量池中的各种符号引用解析为指针，偏移量等内存地址的直接引用。</li>
+</ul>
+</li>
+<li>Initializzing<ul>
+<li>调用类初始化代码 <clinit></li>
+<li>静态变量赋值为初始值</li>
+</ul>
+</li>
+</ul>
+<p>对象的创建过程</p>
+<ul>
+<li>class loading</li>
+<li>class linking ( verification, preparation, resolution)</li>
+<li>class initializing</li>
+<li>申请对象内存</li>
+<li>成员变量赋默认值</li>
+<li>调用构造方法<init><ul>
+<li>成员变量顺序赋初始值</li>
+<li>执行构造方法语句</li>
+</ul>
+</li>
+</ul>
+<p>JMM</p>
+<ul>
+<li>硬件层数据一致性</li>
+<li>乱序问题</li>
+<li>volatile的实现细节<ul>
+<li>字节码层面   ACC_VOLATILE</li>
+<li>JVM层面     volatile内存区的读写都加屏障</li>
+<li>OS和硬件层面  windows lock指令实现</li>
+</ul>
+</li>
+<li>synchronized实现细节<ul>
+<li>字节码层面   ACC_SYNCHRONIZED   monitorenter monitorexit</li>
+<li>JVM层面     C C++调用了操作系统提供的同步机制</li>
+<li>OS和硬件层面   x86: lock cmpxchg/xxx</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2021/03/24/java%E4%B8%AD%E7%9A%84char/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,10 +288,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-24 21:25:35 / 修改时间：14:54:21" itemprop="dateCreated datePublished" datetime="2021-03-24T21:25:35+00:00">2021-03-24</time>
+              <time title="创建时间：2021-03-24 21:25:35" itemprop="dateCreated datePublished" datetime="2021-03-24T21:25:35+00:00">2021-03-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
+              </span>
 
           
 
@@ -250,7 +368,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -322,7 +440,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -394,7 +512,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -466,7 +584,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -538,7 +656,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -610,7 +728,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -682,7 +800,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -754,7 +872,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -826,7 +944,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -898,7 +1016,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
+                <time title="修改时间：2021-03-25 15:04:39" itemprop="dateModified" datetime="2021-03-25T15:04:39+00:00">2021-03-25</time>
               </span>
 
           
@@ -916,78 +1034,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Hydrangea/2020/11/09/%E8%A7%A6%E6%91%B8%E5%8F%8D%E9%A6%88%E7%9A%84%E6%80%9D%E8%80%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
-      <meta itemprop="name" content="xiao hong">
-      <meta itemprop="description" content="王二的blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不动心">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/" class="post-title-link" itemprop="url">重学View</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-16 13:17:12" itemprop="dateCreated datePublished" datetime="2020-10-16T13:17:12+00:00">2020-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 14:54:21" itemprop="dateModified" datetime="2021-03-24T14:54:21+00:00">2021-03-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> 关于重学view绘制流程的想法</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Hydrangea/2020/10/16/%E9%87%8D%E5%AD%A6View/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1076,14 +1122,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/Hydrangea/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Hydrangea/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
