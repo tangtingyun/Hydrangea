@@ -6,6 +6,14 @@ tags: Android
 内存优化琐碎记录
 <!-- more -->
 
+### 内存优化5R法则
+腾讯工程师胡凯总结的方法论
+- Reduce 缩减  降低图片分辨率/重采样／抽稀策略
+- Reuse 复用   池化策略／避免频繁创建对象，减少GC压力
+- Recycle 回收  主动销毁，结束，避免内存泄漏／生命周期闭环
+- Refactor 重构  更适合的数据结构／更合理的程序架构
+- Revalue 重审 谨慎使用Large Heap／多进程／第三方框架
+
 ### Java对象内存布局
 - 对象头
   - Mark Work  哈希码 分代年龄 锁状态标记
@@ -125,3 +133,25 @@ https://proandroiddev.com/all-you-need-to-know-about-arraymap-sparsearray-49759c
   - 在退出程序之前，将集合里的东西clear，然后置为null，再退出程序
 - 动画
   - 在页面不可见时 取消动画
+
+### 其它
+- 使用合适的数据结构
+  - HashMap    
+    > 元素个数多  增删频繁 查询插入接近O(1) 2倍扩容 无缩容机制 额外的Entry对象
+  - SparseArray  
+    > 元素个数少 增删不频繁 Key是整型
+  - ArrayMap   
+    > 元素个数少 增删不频繁 Key不是整型 查询插入O(logN) 1.5倍扩容 0.5倍缩容 无额外的对象开销 小数组复用池
+- 内存复用
+  - 比如 Message.obtain()
+- 避免使用枚举
+  - 枚举  类型安全 可读性强
+  - int   省内存
+  - Kotlin1.3以后 内联类 编译时转为int仅限Kotlin内部使用
+- 谨慎使用多进程
+- 谨慎使用Large Heap  碎片化
+- 使用NDK
+  - Native Heap 没有专门的使用限制
+  - 内存大户的核心逻辑主要在Native层
+    - 各类基于Cocos2dx Unity3D等框架的游戏
+    - 游戏以外的OpenGL重度用户，例如各大地图App
