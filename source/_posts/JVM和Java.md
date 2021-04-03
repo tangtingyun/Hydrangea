@@ -4,10 +4,8 @@ date: 2021-03-25 21:51:02
 tags: Java
 ---
 
-<!-- more -->
-
 JVM 是一种规范
-JVM 跟 java无关
+<!-- more -->
 
 文档信息：
 jvms13
