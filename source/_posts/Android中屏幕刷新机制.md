@@ -10,8 +10,10 @@ tags:  Android
 - Activity
   - PhoneWindow        
     > 在Activity的attach中创建PhoneWindow
+
     - DecorView       
       > 把DecorView添加到WindowManager中  创建了ViewRootImpl对象 调用view.assignParent(this); 把ViewRootImple设置为DecorView的parent
+
       - ContentView
 
 
