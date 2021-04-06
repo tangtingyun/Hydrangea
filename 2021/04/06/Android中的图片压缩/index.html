@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Hydrangea/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Hydrangea/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Hydrangea/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Hydrangea/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Hydrangea/css/main.css">
+
+
+<link rel="stylesheet" href="/Hydrangea/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="LuBan压缩开源库探究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的图片压缩">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2021/04/06/Android%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/index.html">
+<meta property="og:site_name" content="不动心">
+<meta property="og:description" content="LuBan压缩开源库探究">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-06T20:26:20.000Z">
+<meta property="article:modified_time" content="2021-04-06T15:24:49.792Z">
+<meta property="article:author" content="xiao hong">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2021/04/06/Android%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android中的图片压缩 | 不动心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Hydrangea/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不动心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Hydrangea/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Hydrangea/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Hydrangea/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2021/04/06/Android%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android中的图片压缩
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-06 20:26:20 / 修改时间：15:24:49" itemprop="dateCreated datePublished" datetime="2021-04-06T20:26:20+00:00">2021-04-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://github.com/Curzibn/Luban" target="_blank" rel="noopener">LuBan</a>压缩开源库探究</p>
+<a id="more"></a>
+
+<p>现在的手机像素越来越高，随便一张图片都是好几M，甚至几十M，这样的照片加载到app，可想而知，随便加载几张图片，手机内存就<br>不够用了，自然而然就造成了OOM，所以图片压缩异常重要，记录下自己对Luban开源框架的学习和探究</p>
+<h4 id="Android中的常用压缩"><a href="#Android中的常用压缩" class="headerlink" title="Android中的常用压缩"></a>Android中的常用压缩</h4><ul>
+<li>质量压缩<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 质量压缩 降低图片的质量，像素不会减少</span></span><br><span class="line"><span class="comment">// 可以设置 0 - 100 来实现压缩 我看最新版的luban里设置的是 60</span></span><br><span class="line">bmp.compress(Bitmap.CompressFormat.JPEG,  <span class="number">10</span>, baos);</span><br></pre></td></tr></table></figure></li>
+<li>尺寸压缩<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过降低宽高采样 缩小图片大小来减少图片占用内存</span></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * If set to a value &gt; 1, requests the decoder to subsample the original</span></span><br><span class="line"><span class="comment">         * image, returning a smaller image to save memory. The sample size is</span></span><br><span class="line"><span class="comment">         * the number of pixels in either dimension that correspond to a single</span></span><br><span class="line"><span class="comment">         * pixel in the decoded bitmap. For example, inSampleSize == 4 returns</span></span><br><span class="line"><span class="comment">         * an image that is 1/4 the width/height of the original, and 1/16 the</span></span><br><span class="line"><span class="comment">         * number of pixels. Any value &lt;= 1 is treated the same as 1. Note: the</span></span><br><span class="line"><span class="comment">         * decoder uses a final value based on powers of 2, any other value will</span></span><br><span class="line"><span class="comment">         * be rounded down to the nearest power of 2.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> inSampleSize;</span><br></pre></td></tr></table></figure></li>
+<li>使用libjpeg库 实现native哈夫曼压缩</li>
+</ul>
+<h4 id="LuBan"><a href="#LuBan" class="headerlink" title="LuBan"></a>LuBan</h4><p>luban有两个分支 <code>main</code> 和 <code>turbo</code> </p>
+<p><code>main</code> 分支使用的是java代码压缩</p>
+<p><code>turbo</code> 分支使用的是 <code>libjpeg-turbo</code> 并开启了 哈夫曼压缩 会添加额外的so包 看情况取舍吧<br><a href="https://github.com/Curzibn/Luban-Turbo/blob/master/app/src/main/cpp/turbo.c" target="_blank" rel="noopener">c层实现</a></p>
+<p>关键类:</p>
+<p>-Checker:<br> 判断图片的工具</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 并没有简单的通过后缀名来判断图片类型 通过读取字节流中的文件标示</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] JPEG_SIGNATURE = <span class="keyword">new</span> <span class="keyword">byte</span>[]&#123;(<span class="keyword">byte</span>) <span class="number">0xFF</span>, (<span class="keyword">byte</span>) <span class="number">0xD8</span>, (<span class="keyword">byte</span>) <span class="number">0xFF</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isJPG</span><span class="params">(<span class="keyword">byte</span>[] data)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (data == <span class="keyword">null</span> || data.length &lt; <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">byte</span>[] signatureB = <span class="keyword">new</span> <span class="keyword">byte</span>[]&#123;data[<span class="number">0</span>], data[<span class="number">1</span>], data[<span class="number">2</span>]&#125;;</span><br><span class="line">  <span class="keyword">return</span> Arrays.equals(JPEG_SIGNATURE, signatureB);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否需要压缩 leastCompressSize默认是100KB 可以开发者自己设置</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">needCompress</span><span class="params">(<span class="keyword">int</span> leastCompressSize, String path)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (leastCompressSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    File source = <span class="keyword">new</span> File(path);</span><br><span class="line">    <span class="comment">// https://blog.csdn.net/u014143369/article/details/53164791  获取文件大小的几种方法</span></span><br><span class="line">    <span class="keyword">return</span> source.exists() &amp;&amp; source.length() &gt; (leastCompressSize &lt;&lt; <span class="number">10</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Engine<br>真正做压缩的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 设置inJustDecodeBounds为true 获取图片原始宽高</span></span><br><span class="line"> BitmapFactory.Options options = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line"> options.inJustDecodeBounds = <span class="keyword">true</span>;</span><br><span class="line"> options.inSampleSize = <span class="number">1</span>;</span><br><span class="line"> BitmapFactory.decodeStream(srcImg.open(), <span class="keyword">null</span>, options);</span><br><span class="line"> <span class="keyword">this</span>.srcWidth = options.outWidth;</span><br><span class="line"> <span class="keyword">this</span>.srcHeight = options.outHeight;</span><br><span class="line"></span><br><span class="line">　  <span class="comment">// 计算出合理的inSampleSize 采样率</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">computeSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     srcWidth = srcWidth % <span class="number">2</span> == <span class="number">1</span> ? srcWidth + <span class="number">1</span> : srcWidth;</span><br><span class="line">     srcHeight = srcHeight % <span class="number">2</span> == <span class="number">1</span> ? srcHeight + <span class="number">1</span> : srcHeight;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">int</span> longSide = Math.max(srcWidth, srcHeight);</span><br><span class="line">     <span class="keyword">int</span> shortSide = Math.min(srcWidth, srcHeight);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">float</span> scale = ((<span class="keyword">float</span>) shortSide / longSide);</span><br><span class="line">     <span class="keyword">if</span> (scale &lt;= <span class="number">1</span> &amp;&amp; scale &gt; <span class="number">0.5625</span>) &#123;</span><br><span class="line">     <span class="keyword">if</span> (longSide &lt; <span class="number">1664</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">     &#125; <span class="keyword">else</span> <span class="keyword">if</span> (longSide &lt; <span class="number">4990</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">     &#125; <span class="keyword">else</span> <span class="keyword">if</span> (longSide &gt; <span class="number">4990</span> &amp;&amp; longSide &lt; <span class="number">10240</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> longSide / <span class="number">1280</span> == <span class="number">0</span> ? <span class="number">1</span> : longSide / <span class="number">1280</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     &#125; <span class="keyword">else</span> <span class="keyword">if</span> (scale &lt;= <span class="number">0.5625</span> &amp;&amp; scale &gt; <span class="number">0.5</span>) &#123;</span><br><span class="line">     <span class="keyword">return</span> longSide / <span class="number">1280</span> == <span class="number">0</span> ? <span class="number">1</span> : longSide / <span class="number">1280</span>;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="keyword">return</span> (<span class="keyword">int</span>) Math.ceil(longSide / (<span class="number">1280.0</span> / scale));</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 真正开始执行压缩</span></span><br><span class="line">  <span class="function">File <span class="title">compress</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">     BitmapFactory.Options options = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">     options.inSampleSize = computeSize();</span><br><span class="line"></span><br><span class="line">     Bitmap tagBitmap = BitmapFactory.decodeStream(srcImg.open(), <span class="keyword">null</span>, options);</span><br><span class="line">     ByteArrayOutputStream stream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (Checker.SINGLE.isJPG(srcImg.open())) &#123;</span><br><span class="line">         tagBitmap = rotatingImage(tagBitmap, Checker.SINGLE.getOrientation(srcImg.open()));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// 压缩质量为60 需要透明度则压缩为PNG 否则是 JPEG</span></span><br><span class="line">     tagBitmap.compress(focusAlpha ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, <span class="number">60</span>, stream);</span><br><span class="line">     tagBitmap.recycle();</span><br><span class="line"></span><br><span class="line">     FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(tagImg);</span><br><span class="line">     fos.write(stream.toByteArray());</span><br><span class="line">     fos.flush();</span><br><span class="line">     fos.close();</span><br><span class="line">     stream.close();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> tagImg;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Luban<br>对外的门户类 构造者模式方便调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;InputStreamProvider&gt; iterator = mStreamProviders.iterator();</span><br><span class="line"><span class="comment">// 循环执行外部传入的文件路径</span></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">  <span class="keyword">final</span> InputStreamProvider path = iterator.next();</span><br><span class="line"></span><br><span class="line">  AsyncTask.SERIAL_EXECUTOR.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        mHandler.sendMessage(mHandler.obtainMessage(MSG_COMPRESS_START));</span><br><span class="line"></span><br><span class="line">        File result = compress(context, path);</span><br><span class="line"></span><br><span class="line">        mHandler.sendMessage(mHandler.obtainMessage(MSG_COMPRESS_SUCCESS, result));</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        mHandler.sendMessage(mHandler.obtainMessage(MSG_COMPRESS_ERROR, e));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"> 　<span class="comment">// 执行完移除</span></span><br><span class="line">  iterator.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>关于libjpeg-turbo实现<br>skia  -&gt;  libjpeg<br>对标<br>retrofit -&gt; okhttp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;android/bitmap.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;android/log.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">&#123;   <span class="comment">//引入libjpeg-turbo头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"jpeglib.h"</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGE(...) __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOG_TAG <span class="meta-string">"david"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> true 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">uint8_t</span> BYTE;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写入压缩文件到本地</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writeImg</span><span class="params">(BYTE *data, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> w, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//jpeg引擎   绕过 skia  来实现压缩</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">jpeg_compress_struct</span> <span class="title">jpeg_struct</span>;</span></span><br><span class="line">    <span class="comment">// 设置错误处理信息</span></span><br><span class="line">    jpeg_error_mgr err;</span><br><span class="line">    jpeg_struct.err = jpeg_std_error(&amp;err);</span><br><span class="line">    <span class="comment">//  给结构体分配内存</span></span><br><span class="line">    jpeg_create_compress(&amp;jpeg_struct);</span><br><span class="line"></span><br><span class="line">    FILE *file = fopen(path, <span class="string">"wb"</span>);</span><br><span class="line">    <span class="comment">//  设置输出路径</span></span><br><span class="line">    jpeg_stdio_dest(&amp;jpeg_struct, file);</span><br><span class="line"></span><br><span class="line">    jpeg_struct.image_width = w;</span><br><span class="line">    jpeg_struct.image_height = h;</span><br><span class="line">    <span class="comment">//    初始化  初始化</span></span><br><span class="line">    <span class="comment">//改成FALSE   ---》 开启hufuman算法</span></span><br><span class="line">    jpeg_struct.arith_code = FALSE;</span><br><span class="line">    jpeg_struct.optimize_coding = TRUE;</span><br><span class="line">    jpeg_struct.in_color_space = JCS_RGB;</span><br><span class="line"></span><br><span class="line">    jpeg_struct.input_components = <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//    其他的设置默认</span></span><br><span class="line">    jpeg_set_defaults(&amp;jpeg_struct);</span><br><span class="line">    <span class="comment">// 第二个参数 quality 压缩质量</span></span><br><span class="line">    jpeg_set_quality(&amp;jpeg_struct, <span class="number">20</span>, <span class="literal">true</span>);</span><br><span class="line">    jpeg_start_compress(&amp;jpeg_struct, TRUE);</span><br><span class="line">    JSAMPROW row_pointer[<span class="number">1</span>];</span><br><span class="line">    <span class="comment">//    一行的rgb   颜色数据只有 rgb  忽略 a</span></span><br><span class="line">    <span class="keyword">int</span> row_stride = w * <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">while</span> (jpeg_struct.next_scanline &lt; h) &#123;</span><br><span class="line">        row_pointer[<span class="number">0</span>] = &amp;data[jpeg_struct.next_scanline * w * <span class="number">3</span>];</span><br><span class="line">        jpeg_write_scanlines(&amp;jpeg_struct, row_pointer, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    jpeg_finish_compress(&amp;jpeg_struct);</span><br><span class="line"></span><br><span class="line">    jpeg_destroy_compress(&amp;jpeg_struct);</span><br><span class="line">    fclose(file);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">JNIEXPORT <span class="keyword">void</span> JNICALL</span><br><span class="line">    Java_com_maniu_wechatimagesend_MainActivity_compress(JNIEnv *env, jobject instance,</span><br><span class="line">                                                    jobject bitmap, jstring path_) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *path = env-&gt;GetStringUTFChars(path_, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 获取宽高</span></span><br><span class="line">    AndroidBitmapInfo bitmapInfo;</span><br><span class="line">    AndroidBitmap_getInfo(env, bitmap, &amp;bitmapInfo);</span><br><span class="line">    BYTE *pixels;</span><br><span class="line">    AndroidBitmap_lockPixels(env, bitmap, (<span class="keyword">void</span> **) &amp;pixels);</span><br><span class="line">    <span class="keyword">int</span> h = bitmapInfo.<span class="built_in">height</span>;</span><br><span class="line">    <span class="keyword">int</span> w = bitmapInfo.<span class="built_in">width</span>;</span><br><span class="line"></span><br><span class="line">    BYTE *data,*tmpData;</span><br><span class="line">    data= (BYTE *) <span class="built_in">malloc</span>(w * h * <span class="number">3</span>);</span><br><span class="line">    tmpData = data;</span><br><span class="line">    BYTE r, g, b;</span><br><span class="line">    <span class="keyword">int</span> color;</span><br><span class="line">    <span class="comment">// 颜色数据 只设置rgb 忽略 a</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; ++j) &#123;</span><br><span class="line">            color = *((<span class="keyword">int</span> *) pixels);</span><br><span class="line">            r = ((color &amp; <span class="number">0x00FF0000</span>) &gt;&gt; <span class="number">16</span>);</span><br><span class="line">            g = ((color &amp; <span class="number">0x0000FF00</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">            b = ((color &amp; <span class="number">0x000000FF</span>));</span><br><span class="line">            *data = b;</span><br><span class="line">            *(data + <span class="number">1</span>) = g;</span><br><span class="line">            *(data + <span class="number">2</span>) = r;</span><br><span class="line">            data += <span class="number">3</span>;</span><br><span class="line">            pixels += <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    AndroidBitmap_unlockPixels(env, bitmap);</span><br><span class="line">    writeImg(tmpData, path, w, h);</span><br><span class="line">    <span class="built_in">free</span>(tmpData);</span><br><span class="line">    env-&gt;ReleaseStringUTFChars(path_, path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Hydrangea/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2021/04/05/%E5%85%B3%E4%BA%8EActivity/" rel="prev" title="关于Activity">
+      <i class="fa fa-chevron-left"></i> 关于Activity
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android中的常用压缩"><span class="nav-number">1.</span> <span class="nav-text">Android中的常用压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LuBan"><span class="nav-number">2.</span> <span class="nav-text">LuBan</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xiao hong</p>
+  <div class="site-description" itemprop="description">王二的blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Hydrangea/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Hydrangea/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/a2eda606be5f" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;a2eda606be5f" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>简书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiao hong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Hydrangea/lib/anime.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Hydrangea/js/utils.js"></script>
+
+<script src="/Hydrangea/js/motion.js"></script>
+
+
+<script src="/Hydrangea/js/schemes/pisces.js"></script>
+
+
+<script src="/Hydrangea/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
