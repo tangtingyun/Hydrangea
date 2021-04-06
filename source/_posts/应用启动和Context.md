@@ -6,6 +6,14 @@ tags: Android
 重温Context和学习应用是怎么启动的
 <!-- more -->
 
+
+#### 如果我们启动一个hello world安卓应用程序 里面不另外启动其它线程 这个里面最少要启动四个线程
+
+- main线程  程序的主线程，也叫UI线程 因为android的组件是非线程安全的，所以只允许主线程来操作。
+- GC线程    java有垃圾回收机制 每个java程序都有一个专门负责垃圾回收的线程
+- Binder1 就是我们的ApplicationThread 这个类实现了IBinder接口 用于进程间通信 具体来说 就是我们程序和AMS通信的工具
+- Binder2  就是我们的ViewRootImpl.W对象，它也是实现类IBinder接口 用于我们的应用程序和 WMS通信的工具
+
 #### 应用进程是怎么启动的
 
 ![应用进程启动](https://i.loli.net/2021/04/03/oHlE7O9aunZ3ctD.png)

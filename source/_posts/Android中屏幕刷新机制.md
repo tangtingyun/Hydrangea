@@ -16,6 +16,10 @@ tags:  Android
 
       - ContentView
 
+#### 屏幕刷新基本概念
+- 帧率 (fps) : Frames Per Second   CPU/GPU 生成图像的速度
+- 刷新率:  显示器的频率  比如iPhone的60Hz， iPad Pro的120Hz。  屏幕刷新显示的速度
+- [参考文章](https://www.jianshu.com/p/df185adcee6a)
 
 #### Activity的显示原理
 在 handleResumeActivity 中 
