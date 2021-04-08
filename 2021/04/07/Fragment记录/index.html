@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Hydrangea/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Hydrangea/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Hydrangea/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Hydrangea/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Hydrangea/css/main.css">
+
+
+<link rel="stylesheet" href="/Hydrangea/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangtingyun.github.io","root":"/Hydrangea/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在Android中使用Fragment日常记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fragment记录">
+<meta property="og:url" content="https://tangtingyun.github.io/Hydrangea/2021/04/07/Fragment%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="不动心">
+<meta property="og:description" content="在Android中使用Fragment日常记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/04/07/rL586loeFkjxinZ.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/07/bwjJCQVY8dhFgeK.png">
+<meta property="article:published_time" content="2021-04-07T20:31:49.000Z">
+<meta property="article:modified_time" content="2021-04-08T14:45:45.341Z">
+<meta property="article:author" content="xiao hong">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/07/rL586loeFkjxinZ.png">
+
+<link rel="canonical" href="https://tangtingyun.github.io/Hydrangea/2021/04/07/Fragment%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Fragment记录 | 不动心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Hydrangea/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不动心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Hydrangea/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Hydrangea/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Hydrangea/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangtingyun.github.io/Hydrangea/2021/04/07/Fragment%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Hydrangea/images/avatar.gif">
+      <meta itemprop="name" content="xiao hong">
+      <meta itemprop="description" content="王二的blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不动心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Fragment记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-07 20:31:49" itemprop="dateCreated datePublished" datetime="2021-04-07T20:31:49+00:00">2021-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-08 14:45:45" itemprop="dateModified" datetime="2021-04-08T14:45:45+00:00">2021-04-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在Android中使用Fragment日常记录</p>
+<a id="more"></a>
+
+
+<h4 id="Fragment基本使用"><a href="#Fragment基本使用" class="headerlink" title="Fragment基本使用"></a>Fragment基本使用</h4><p>核心三步走：</p>
+<ol>
+<li>创建Fragment</li>
+<li>获取FragmentManager</li>
+<li>调用事务，添加，替换。</li>
+</ol>
+<p>add remove replace 等只是记录操作 真正触发在commit里面<br>在androidx版本里面 <code>androidx.fragment.app</code> 生命周期的流转处理在:<br><code>FragmentManagerImpl#moveToState</code>  722行代码</p>
+<p>事务最终的提交方法：</p>
+<ol>
+<li>commit()<ol>
+<li>在主线程中异步执行，其实也是Hanlder抛出任务，等待主线程调度执行。</li>
+<li>commit需要在宿主Activity保存状态之前调用，否则会报错</li>
+</ol>
+</li>
+<li>commitAllowingStateLoss()<ol>
+<li>异步执行 </li>
+<li>允许状态丢失</li>
+</ol>
+</li>
+<li>commitNow()<ol>
+<li>同步执行</li>
+<li>也必须在Activity保存状态前调用，否则会抛出异常。</li>
+</ol>
+</li>
+<li>commitNowAllowingStateLoss()<ol>
+<li>同步执行</li>
+<li>允许状态丢失</li>
+</ol>
+</li>
+</ol>
+<h4 id="Fragment-Fragmentmanager-FragmentTransaction关系"><a href="#Fragment-Fragmentmanager-FragmentTransaction关系" class="headerlink" title="Fragment Fragmentmanager FragmentTransaction关系"></a>Fragment Fragmentmanager FragmentTransaction关系</h4><ul>
+<li>Fragment<ul>
+<li>其实是对View的封装，它持有view，containerView，fragmentManager，childFragmentManager等信息。</li>
+</ul>
+</li>
+<li>FragmentManager<ul>
+<li>是一个抽象类，它定义了对一个Activity／Fragment中添加进来的Fragment列表，Fragment回退栈的操作，管理方法</li>
+<li>还定义了获取事务对象的方法</li>
+<li>具体实现在FragmentImpl中</li>
+</ul>
+</li>
+<li>FragmentTransaction<ul>
+<li>定义了对Fragment添加，替换，隐藏等操作，还有四种提交方法</li>
+<li>具体实现在BackStackRecord中</li>
+</ul>
+</li>
+<li>配图：<ul>
+<li><img src="https://i.loli.net/2021/04/07/rL586loeFkjxinZ.png" alt="fragment相关类图.png"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Activity和Fragment-的-onActivityForResult-回调"><a href="#Activity和Fragment-的-onActivityForResult-回调" class="headerlink" title="Activity和Fragment 的 onActivityForResult 回调"></a>Activity和Fragment 的 onActivityForResult 回调</h4><ol>
+<li>当在Fragment里面调用startActivityForResult的时候 Activity和Fragment里面的onActivityForResult都会回调，只不过Fragment里面回调的requestCode是正确的</li>
+<li>当在Fragment里面调用getActivity().startActivityForResult的时候，就会回调Activity里面的onActivityForResult</li>
+<li>当Fragment存在多层嵌套的情况，内层的Fragment调用startActivityForResult的时候，onActivityForResult方法不回调，此时需要创建一个BaseActivity复写它的onActivityResult方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseFragmentActiviy</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"BaseActivity"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">FragmentManager fm = getSupportFragmentManager();</span><br><span class="line"><span class="keyword">int</span> index = requestCode &gt;&gt; <span class="number">16</span>;</span><br><span class="line"><span class="keyword">if</span> (index != <span class="number">0</span>) &#123;</span><br><span class="line">index--;</span><br><span class="line"><span class="keyword">if</span> (fm.getFragments() == <span class="keyword">null</span> || index &lt; <span class="number">0</span></span><br><span class="line">    || index &gt;= fm.getFragments().size()) &#123;</span><br><span class="line">    Log.w(TAG, <span class="string">"Activity result fragment index out of range: 0x"</span></span><br><span class="line">    + Integer.toHexString(requestCode));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">Fragment frag = fm.getFragments().get(index);</span><br><span class="line"><span class="keyword">if</span> (frag == <span class="keyword">null</span>) &#123;</span><br><span class="line">    Log.w(TAG, <span class="string">"Activity result no fragment exists for index: 0x"</span></span><br><span class="line">    + Integer.toHexString(requestCode));</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    handleResult(frag, requestCode, resultCode, data);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 递归调用，对所有子Fragement生效</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> frag</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> requestCode</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> resultCode</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> data</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleResult</span><span class="params">(Fragment frag, <span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode,</span></span></span><br><span class="line"><span class="function"><span class="params">Intent data)</span> </span>&#123;</span><br><span class="line">frag.onActivityResult(requestCode &amp; <span class="number">0xffff</span>, resultCode, data);</span><br><span class="line">List&lt;Fragment&gt; frags = frag.getChildFragmentManager().getFragments();</span><br><span class="line"><span class="keyword">if</span> (frags != <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="keyword">for</span> (Fragment f : frags) &#123;</span><br><span class="line">    <span class="keyword">if</span> (f != <span class="keyword">null</span>)</span><br><span class="line">    handleResult(f, requestCode, resultCode, data);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 启动Activity的时候一定要用根Fragment</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 得到根Fragment</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Fragment <span class="title">getRootFragment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">Fragment fragment = getParentFragment();</span><br><span class="line"><span class="keyword">while</span> (fragment.getParentFragment() != <span class="keyword">null</span>) &#123;</span><br><span class="line">fragment = fragment.getParentFragment();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> fragment;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 启动Activity</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">onClickTextViewRemindAdvancetime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">    intent.setClass(getActivity(), YourActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    intent.putExtra(<span class="string">"TAG"</span>,<span class="string">"TEST"</span>); </span><br><span class="line">    getRootFragment().startActivityForResult(intent, <span class="number">1001</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Fragment的getActivity方法返回null的原因："><a href="#Fragment的getActivity方法返回null的原因：" class="headerlink" title="Fragment的getActivity方法返回null的原因："></a>Fragment的getActivity方法返回null的原因：</h4><p>如果系统内存不足、或者切换横竖屏、或者app长时间在后台运行，Activity都可能会被系统回收，但是Fragment并不会随着Activity的回收而被回收，从而导致Fragment丢失对应的Activity。这里，假设我们继承于FragmentActivity的类为MainActivity，其中用到的Fragment为FragmentA。<br> app发生的变化为：某种原因系统回收MainActivity——FragmentA被保存状态未被回收——再次点击app进入——首先加载的是未被回收的FragmentA的页面——由于MainActivity被回收，系统会重启MainActivity，FragmentA也会被再次加载——页面出现混乱，因为一层未回收的FragmentA覆盖在其上面——（假如FragmentA使用到了getActivity()方法）会报NullPointerException.</p>
+<h4 id="ViewPager配合Fragment"><a href="#ViewPager配合Fragment" class="headerlink" title="ViewPager配合Fragment"></a>ViewPager配合Fragment</h4><ul>
+<li><p>预加载<br>ViewPager会默认预加载左右两侧的fragment，通过Viewpager#setOffscreenPageLimit可以设置 至少是 1<br>预加载是为了缓存 能更快的展示页面 可是我们的有时又不想在页面还没有展示的时候，就去获取资源。于是衍生出懒加载</p>
+</li>
+<li><p>懒加载<br>当页面真正显示的时候 才去请求资源</p>
+</li>
+</ul>
+<p>ViewPager 配合 PagerAdapter 显示页面<br>关键方法是 ViewPager#populate 分以下五步：</p>
+<ul>
+<li>准备适配 <ul>
+<li>startUpdate        // 准备缓存初始化工作</li>
+</ul>
+</li>
+<li>创建适配的Item数据<ul>
+<li>instantiateItem   // 处理缓存数据，增加和删除缓存节点item信息</li>
+</ul>
+</li>
+<li>销毁适配的Item数据<ul>
+<li>destroyItem       // 处理缓存数据，增加和删除缓存节点item信息</li>
+</ul>
+</li>
+<li>设置当前显示的Item数据<ul>
+<li>setPrimaryItem    // 处理缓存数据，增加和删除缓存节点item信息</li>
+</ul>
+</li>
+<li>完成适配<ul>
+<li>finishUpdate       // 触发缓存 启动真正的数据Item更新业务</li>
+</ul>
+</li>
+</ul>
+<h6 id="生命周期配图"><a href="#生命周期配图" class="headerlink" title="生命周期配图"></a>生命周期配图</h6><p><img src="https://i.loli.net/2021/04/07/bwjJCQVY8dhFgeK.png" alt="viewPager中fragment的生命周期.png"></p>
+<h5 id="ViewPager下懒加载方案"><a href="#ViewPager下懒加载方案" class="headerlink" title="ViewPager下懒加载方案"></a>ViewPager下懒加载方案</h5><p>// 仅适用于一层frament 如果又childFragment 更复杂。。。。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> View rootView = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isViewCreated = <span class="keyword">false</span>; <span class="comment">// View加载了</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isVisibleStateUP = <span class="keyword">false</span>; <span class="comment">// 记录上一次可见的状态</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        E(<span class="string">"onCreateView: "</span>);</span><br><span class="line">        <span class="keyword">if</span> (rootView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            rootView = inflater.inflate(getLayoutRes(),container, <span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        isViewCreated  = <span class="keyword">true</span>; <span class="comment">// 1#. 解决未初始化奔溃</span></span><br><span class="line">        initView(rootView); <span class="comment">// 初始化控件 findvxxx</span></span><br><span class="line">        <span class="comment">// 2#. 解决第一次一直初始化loading一直显示的问题</span></span><br><span class="line">        <span class="keyword">if</span> (getUserVisibleHint()) &#123;</span><br><span class="line">            <span class="comment">// 手动来分发下</span></span><br><span class="line">            setUserVisibleHint(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rootView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断 Fragment 是否可见</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserVisibleHint</span><span class="params">(<span class="keyword">boolean</span> isVisibleToUser)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.setUserVisibleHint(isVisibleToUser);</span><br><span class="line">        E(<span class="string">"setUserVisibleHint"</span>);</span><br><span class="line">        <span class="keyword">if</span> (isViewCreated) &#123;</span><br><span class="line">            <span class="comment">// 3#. 记录上一次可见的状态: &amp;&amp; isVisibleStateUP</span></span><br><span class="line">            <span class="keyword">if</span> (isVisibleToUser &amp;&amp; !isVisibleStateUP) &#123;</span><br><span class="line">                dispatchUserVisibleHint(<span class="keyword">true</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isVisibleToUser &amp;&amp; isVisibleStateUP)&#123;</span><br><span class="line">                dispatchUserVisibleHint(<span class="keyword">false</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分发 可见 不可见 的动作</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dispatchUserVisibleHint</span><span class="params">(<span class="keyword">boolean</span> visibleState)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 记录上一次可见的状态 实时更新状态</span></span><br><span class="line">        <span class="keyword">this</span>.isVisibleStateUP = visibleState;</span><br><span class="line">        <span class="keyword">if</span> (visibleState) &#123;</span><br><span class="line">            <span class="comment">// 加载数据</span></span><br><span class="line">            onFragmentLoad();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 停止一切操作</span></span><br><span class="line">            onFragmentLoadStop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 让子类完成，初始化布局，初始化控件</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">(View rootView)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getLayoutRes</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// --&gt;&gt;&gt;停止网络数据请求</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFragmentLoadStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        E(<span class="string">"onFragmentLoadStop"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// --&gt;&gt;&gt;加载网络数据请求</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFragmentLoad</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        E(<span class="string">"onFragmentLoad"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line">        E(<span class="string">"onResume"</span>);</span><br><span class="line">        <span class="comment">// 4#. 不可见 到 可见 变化过程  说明可见</span></span><br><span class="line">        <span class="keyword">if</span> (getUserVisibleHint() &amp;&amp; !isVisibleStateUP) &#123;</span><br><span class="line">            dispatchUserVisibleHint(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line">        E(<span class="string">"onPause"</span>);</span><br><span class="line">        <span class="comment">// 5#. 可见 到 不可见  变化过程  说明 不可见</span></span><br><span class="line">        <span class="keyword">if</span> (getUserVisibleHint() &amp;&amp; isVisibleStateUP) &#123;</span><br><span class="line">            dispatchUserVisibleHint(<span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroyView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroyView();</span><br><span class="line">        E(<span class="string">"onDestroyView"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">E</span><span class="params">(String  string)</span> </span>&#123;</span><br><span class="line">       Log.i(<span class="string">"LazyFrament"</span>, <span class="string">"name: "</span> + mFragment.getClass().getSimpleName() + <span class="string">" -&gt; "</span> + method);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Hydrangea/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hydrangea/2021/04/06/Android%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" rel="prev" title="Android中的图片压缩">
+      <i class="fa fa-chevron-left"></i> Android中的图片压缩
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment基本使用"><span class="nav-number">1.</span> <span class="nav-text">Fragment基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment-Fragmentmanager-FragmentTransaction关系"><span class="nav-number">2.</span> <span class="nav-text">Fragment Fragmentmanager FragmentTransaction关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activity和Fragment-的-onActivityForResult-回调"><span class="nav-number">3.</span> <span class="nav-text">Activity和Fragment 的 onActivityForResult 回调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的getActivity方法返回null的原因："><span class="nav-number">4.</span> <span class="nav-text">Fragment的getActivity方法返回null的原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewPager配合Fragment"><span class="nav-number">5.</span> <span class="nav-text">ViewPager配合Fragment</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#生命周期配图"><span class="nav-number">5.0.1.</span> <span class="nav-text">生命周期配图</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ViewPager下懒加载方案"><span class="nav-number">5.1.</span> <span class="nav-text">ViewPager下懒加载方案</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xiao hong</p>
+  <div class="site-description" itemprop="description">王二的blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Hydrangea/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Hydrangea/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/a2eda606be5f" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;a2eda606be5f" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>简书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiao hong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Hydrangea/lib/anime.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.min.js"></script>
+  <script src="/Hydrangea/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Hydrangea/js/utils.js"></script>
+
+<script src="/Hydrangea/js/motion.js"></script>
+
+
+<script src="/Hydrangea/js/schemes/pisces.js"></script>
+
+
+<script src="/Hydrangea/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
