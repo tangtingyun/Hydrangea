@@ -209,18 +209,11 @@ LiveData的消息分发机制，是以往的Handler，EventBus等无法比拟的
 
 
 
-##### ViewModel: 具备生命周期感知能力的数据存储组件
-
-##### SavedState 
-
-##### Room： 数据库操作
-
-##### DataBinding：只是一种工具，它解决的是View和数据之间的双向绑定
-
-##### Paging： 列表分页组件，可以轻松完成分页预加载以达到无限滑动的效果
-
-##### Navigation： 统一路由组件
-
-##### WorkManager：后台任务管理组件
-
-##### 老项目适配Androidx
+## ViewModel: 具备生命周期感知能力的数据存储组件
+## SavedState  
+## Room： 数据库操作
+## DataBinding：只是一种工具，它解决的是View和数据之间的双向绑定
+## Paging： 列表分页组件，可以轻松完成分页预加载以达到无限滑动的效果
+## Navigation： 统一路由组件
+## WorkManager：后台任务管理组件
+## 老项目适配Androidx
