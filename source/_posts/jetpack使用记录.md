@@ -206,10 +206,36 @@ LiveData的消息分发机制，是以往的Handler，EventBus等无法比拟的
 
 可以基于LiveData实现 EventBus类似时间总线功能，这样就不用多引入一个三方库啦.
 
-
-
-
 ## ViewModel: 具备生命周期感知能力的数据存储组件
+
+ViewModel 是具备宿主生命周期感知能力的数据存储组件, 使用ViewModel保存的数据, 在页面因配置变更
+导致页面销毁重建之后依然也是存在的。
+> 配置变更主要是指：横竖屏切换，分辨率调整，权限变更，系统字体样式变更。
+
+使用：
+```java
+// https://developer.android.google.cn/topic/libraries/architecture/viewmodel#java
+  class LocationViewModel extends ViewModel {
+        public void getLocation() {
+        }
+    }
+    LocationViewModel locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
+
+   locationViewModel.getLocation();
+```
+###### ViewModel服用原理
+
+ViewModel可以实现因配置变更导致页面销毁重建之后依然可以服用，确切来说，应该是页面恢复重建前后
+获取到的是同一个ViewModel实例对象，所以页面重建恢复后还能接着用.
+
+Activity因系统页面原因被回收时，会触发`onRetainNonConfigurationInstance`方法， 所以viewModelStore对象会被存储在
+NonConfigurationInstance中，在页面恢复重建时，会再次把这个NonConfigurationInstance对象传递到新的Activity中实现复用。
+
+ViewModel和onSaveInstanceState方法有什么区别?
+onSaveInstanceState 只能存储轻量级的key-value键值对数据，内存不足/非配置变更导致的页面被回收时才会触发，此时数据存储在ActivityRecord中.
+ViewModel 可以存放任意Object数据, 因配置变更导致的页面被回收才有效。 此时数据保存在ActivityThread#ActivityClientRecord中.
+
+
 ## SavedState  
 ## Room： 数据库操作
 ## DataBinding：只是一种工具，它解决的是View和数据之间的双向绑定
